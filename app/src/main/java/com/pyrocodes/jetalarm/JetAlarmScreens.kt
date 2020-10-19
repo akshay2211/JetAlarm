@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.VectorAsset
+import com.pyrocodes.jetalarm.ui.screens.clock.showClock
 
 /**
  * Created by akshay on 18,October,2020
@@ -15,7 +16,7 @@ enum class JetAlarmScreens(
 ) {
     ClockScreen(
         icon = Icons.Outlined.CheckCircle,//vectorResource(id = R.drawable.ic_replay),
-        body = {  }
+        body = { showClock() }
     ),
     AlarmScreen(
         icon = Icons.Outlined.CheckCircle,
