@@ -6,6 +6,7 @@ import androidx.compose.animation.transition
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -28,7 +29,7 @@ val handProgress = FloatPropKey()
 
 @Composable
 fun showClock() {
-    Box(modifier = Modifier.fillMaxWidth().height(300.dp).background(Color.Red)) {
+    Box(modifier = Modifier.fillMaxWidth().height(300.dp)) {
         handMovements()
     }
 }
@@ -41,7 +42,7 @@ fun handMovements() {
 
 @Composable()
 fun hands(fl: Float) {
-
+var color = MaterialTheme.colors.primary
     Canvas(modifier = Modifier.fillMaxSize()) {
         var progression = ((System.currentTimeMillis() % 1000) / 1000.0)
         Log.e("fl", " -> $fl   $progression")
@@ -59,9 +60,9 @@ fun hands(fl: Float) {
         val animatedMinute = min + animatedSecond / 60
         val animatedHour = (hour + (animatedMinute / 60)) * 5f
 
-        secondHand(centerX, centerY, size.getRadius(0.8f), animatedSecond)
-        minuteHand(centerX, centerY, size.getRadius(0.6f), animatedMinute)
-        hourHand(centerX, centerY, size.getRadius(0.5f), animatedHour)
+        secondHand(centerX, centerY, size.getRadius(0.8f), animatedSecond,color)
+        minuteHand(centerX, centerY, size.getRadius(0.6f), animatedMinute,color)
+        hourHand(centerX, centerY, size.getRadius(0.5f), animatedHour,color)
         Log.e("animated Second Minute", "$animatedSecond $animatedMinute $animatedHour")
     }
 }
@@ -70,7 +71,8 @@ fun DrawScope.secondHand(
     centerX: Float,
     centerY: Float,
     clockRadius: Float,
-    animatedSecond: Double
+    animatedSecond: Double,
+    color:Color
 ) {
     val degree = animatedSecond * oneMinuteRadians - pieByTwo
     val x = centerX + cos(degree) * clockRadius
@@ -78,7 +80,7 @@ fun DrawScope.secondHand(
     drawLine(
         start = Offset(centerX, centerY),
         end = Offset(x.toFloat(), y.toFloat()),
-        color = Color.Blue,
+        color = color,
         strokeWidth = 6f
     )
 }
@@ -87,7 +89,8 @@ fun DrawScope.minuteHand(
     centerX: Float,
     centerY: Float,
     clockRadius: Float,
-    animatedMinute: Double
+    animatedMinute: Double,
+    color:Color
 ) {
     val degree = animatedMinute * oneMinuteRadians - pieByTwo
     val x = centerX + cos(degree) * clockRadius
@@ -95,19 +98,20 @@ fun DrawScope.minuteHand(
     drawLine(
         start = Offset(centerX, centerY),
         end = Offset(x.toFloat(), y.toFloat()),
-        color = Color.Blue,
+        color = color,
         strokeWidth = 10f
     )
 }
 
-fun DrawScope.hourHand(centerX: Float, centerY: Float, clockRadius: Float, animatedHour: Double) {
+fun DrawScope.hourHand(centerX: Float, centerY: Float, clockRadius: Float, animatedHour: Double,
+                       color:Color) {
     val degree = animatedHour * oneMinuteRadians - pieByTwo
     val x = centerX + cos(degree) * clockRadius
     val y = centerY + sin(degree) * clockRadius
     drawLine(
         start = Offset(centerX, centerY),
         end = Offset(x.toFloat(), y.toFloat()),
-        color = Color.Blue,
+        color = color,
         strokeWidth = 12f
     )
 }

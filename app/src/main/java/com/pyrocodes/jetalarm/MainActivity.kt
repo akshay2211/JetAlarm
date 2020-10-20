@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
 @Composable
 fun JetAlarmApp() {
-    JetAlarmTheme(true) {
+    JetAlarmTheme() {
         val allScreens = JetAlarmScreens.values().toList()
         var currentScreen by savedInstanceState { JetAlarmScreens.ClockScreen }
         Scaffold(
@@ -46,7 +46,7 @@ fun JetAlarmApp() {
                 )
             }
         ) { innerPadding ->
-            Box(Modifier.padding(innerPadding).background(Color.Magenta)) {
+            Box(Modifier.padding(innerPadding)) {
                 currentScreen.content(onScreenChange = { screen -> currentScreen = screen })
             }
         }

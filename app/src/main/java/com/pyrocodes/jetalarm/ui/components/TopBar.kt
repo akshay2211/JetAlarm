@@ -1,5 +1,6 @@
 package com.pyrocodes.jetalarm.ui.components
 
+import android.util.Log
 import androidx.compose.animation.animate
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearEasing
@@ -31,12 +32,14 @@ fun TabBarComponent(
     currentScreen: JetAlarmScreens
 ) {
     Surface(Modifier.preferredHeight(TabHeight).fillMaxWidth()) {
-        Row(modifier = Modifier.background(Color.Blue)) {
+        Row(modifier = Modifier.background(MaterialTheme.colors.background)) {
             allScreens.forEach { screen ->
                 TabComponent(
-                    text = screen.name.toUpperCase(),
+                    text = screen.name,
                     icon = screen.icon,
-                    onSelected = { onTabSelected(screen) },
+                    onSelected = {
+                        Log.e("clicked","${screen.name}")
+                        onTabSelected(screen) },
                     selected = currentScreen == screen
                 )
             }
@@ -66,19 +69,19 @@ fun TabComponent(
     )
     Row(
         modifier = Modifier
-            .padding(16.dp)
+           // .padding(16.dp)
             .animateContentSize()
-            .preferredHeight(TabHeight)
+            .preferredHeight(TabHeight)//.background(Color.Cyan)
             .selectable(
                 selected = selected,
                 onClick = onSelected,
                 indication = RippleIndication(bounded = false)
             )
     ) {
-        Icon(asset = icon, tint = tabTintColor)
+        Icon(asset = icon, tint = tabTintColor,modifier = Modifier.padding(16.dp))
         if (selected) {
+            Text(text, color = tabTintColor, modifier = Modifier.padding(vertical = 16.dp))
             Spacer(Modifier.preferredWidth(12.dp))
-            Text(text, color = tabTintColor)
         }
     }
 }
