@@ -46,7 +46,7 @@ fun JetAlarmApp() {
                 )
             }
         ) { innerPadding ->
-            Box(Modifier.padding(innerPadding)) {
+            Box(Modifier.padding(innerPadding).background(Color.Magenta)) {
                 currentScreen.content(onScreenChange = { screen -> currentScreen = screen })
             }
         }

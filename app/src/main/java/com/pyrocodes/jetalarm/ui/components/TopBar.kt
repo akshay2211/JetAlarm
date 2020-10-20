@@ -6,6 +6,7 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Icon
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.MaterialTheme
@@ -29,8 +30,8 @@ fun TabBarComponent(
     onTabSelected: (JetAlarmScreens) -> Unit,
     currentScreen: JetAlarmScreens
 ) {
-    Surface(androidx.compose.ui.Modifier.preferredHeight(TabHeight).fillMaxWidth()) {
-        Row {
+    Surface(Modifier.preferredHeight(TabHeight).fillMaxWidth()) {
+        Row(modifier = Modifier.background(Color.Blue)) {
             allScreens.forEach { screen ->
                 TabComponent(
                     text = screen.name.toUpperCase(),
@@ -50,7 +51,7 @@ fun TabComponent(
     selected: Boolean){
 
 
-    val color = MaterialTheme.colors.onSurface
+    val color = MaterialTheme.colors.primary
     val durationMillis = if (selected) TabFadeInAnimationDuration else TabFadeOutAnimationDuration
     val animSpec = remember {
         tween<Color>(
