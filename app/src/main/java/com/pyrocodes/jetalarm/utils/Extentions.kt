@@ -1,4 +1,4 @@
-package com.pyrocodes.jetalarm
+package com.pyrocodes.jetalarm.utils
 
 import androidx.compose.ui.geometry.Size
 

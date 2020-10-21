@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.compose.animation.core.*
 import androidx.compose.animation.transition
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -13,9 +12,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.dp
-import com.pyrocodes.jetalarm.getRadius
-import com.pyrocodes.jetalarm.oneMinuteRadians
-import com.pyrocodes.jetalarm.pieByTwo
+import com.pyrocodes.jetalarm.utils.getRadius
+import com.pyrocodes.jetalarm.utils.oneMinuteRadians
+import com.pyrocodes.jetalarm.utils.pieByTwo
 import java.util.*
 import kotlin.math.cos
 import kotlin.math.sin

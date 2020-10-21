@@ -31,7 +31,7 @@ fun TabBarComponent(
     onTabSelected: (JetAlarmScreens) -> Unit,
     currentScreen: JetAlarmScreens
 ) {
-    Surface(Modifier.preferredHeight(TabHeight).fillMaxWidth()) {
+    Surface(Modifier.preferredHeight(TabHeight).fillMaxWidth(),contentColor = Color.Red,elevation = 10.dp) {
         Row(modifier = Modifier.background(MaterialTheme.colors.background)) {
             allScreens.forEach { screen ->
                 TabComponent(

@@ -1,6 +1,7 @@
 package com.pyrocodes.jetalarm
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
@@ -17,24 +18,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
 import androidx.ui.tooling.preview.Preview
 import com.pyrocodes.jetalarm.ui.components.TabBarComponent
 import com.pyrocodes.jetalarm.ui.screens.clock.showClock
 import com.pyrocodes.jetalarm.ui.theme.JetAlarmTheme
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-           JetAlarmApp()
+                JetAlarmApp()
         }
 }
 }
 
 @Composable
 fun JetAlarmApp() {
-    JetAlarmTheme() {
+    JetAlarmTheme(true) {
         val allScreens = JetAlarmScreens.values().toList()
         var currentScreen by savedInstanceState { JetAlarmScreens.ClockScreen }
         Scaffold(
