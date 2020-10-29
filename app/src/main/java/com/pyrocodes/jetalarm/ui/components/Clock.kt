@@ -1,16 +1,21 @@
-package com.pyrocodes.jetalarm.ui.screens.clock
+package com.pyrocodes.jetalarm.ui.components
 
 import android.util.Log
 import androidx.compose.animation.core.*
 import androidx.compose.animation.transition
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import com.pyrocodes.jetalarm.utils.getRadius
 import com.pyrocodes.jetalarm.utils.oneMinuteRadians
@@ -30,20 +35,42 @@ val handProgress = FloatPropKey()
 fun showClock() {
     Box(modifier = Modifier.fillMaxWidth().height(300.dp)) {
         handMovements()
+        staticUi()
     }
 }
 
 @Composable
 fun handMovements() {
-    var state = transition(definition = handAnimations, initState = 0, toState = 1) {}
+    val state = transition(definition = handAnimations, initState = 0, toState = 1) {}
     hands(state[handProgress])
 }
 
-@Composable()
-fun hands(fl: Float) {
-var color = MaterialTheme.colors.primary
+@Composable
+fun staticUi() {
+    val color = MaterialTheme.colors.primary
+    val color2 = MaterialTheme.colors.background
     Canvas(modifier = Modifier.fillMaxSize()) {
-        var progression = ((System.currentTimeMillis() % 1000) / 1000.0)
+        drawCircle(
+            color = color,
+            radius = 15f
+        )
+        drawCircle(
+            color = color2,
+            radius = 7f
+        )
+        drawCircle(
+            color = color,
+            radius = size.getRadius(0.8f),
+            style = Stroke(7f)
+        )
+    }
+}
+
+@Composable
+fun hands(fl: Float) {
+    val color = MaterialTheme.colors.primary
+    Canvas(modifier = Modifier.fillMaxSize()) {
+        val progression = ((System.currentTimeMillis() % 1000) / 1000.0)
         Log.e("fl", " -> $fl   $progression")
 
 
@@ -59,9 +86,10 @@ var color = MaterialTheme.colors.primary
         val animatedMinute = min + animatedSecond / 60
         val animatedHour = (hour + (animatedMinute / 60)) * 5f
 
-        secondHand(centerX, centerY, size.getRadius(0.8f), animatedSecond,color)
-        minuteHand(centerX, centerY, size.getRadius(0.6f), animatedMinute,color)
-        hourHand(centerX, centerY, size.getRadius(0.5f), animatedHour,color)
+        secondHand(centerX, centerY, size.getRadius(0.7f), animatedSecond, color)
+        minuteHand(centerX, centerY, size.getRadius(0.6f), animatedMinute, color)
+        hourHand(centerX, centerY, size.getRadius(0.45f), animatedHour, color)
+
         Log.e("animated Second Minute", "$animatedSecond $animatedMinute $animatedHour")
     }
 }
@@ -71,7 +99,7 @@ fun DrawScope.secondHand(
     centerY: Float,
     clockRadius: Float,
     animatedSecond: Double,
-    color:Color
+    color: Color
 ) {
     val degree = animatedSecond * oneMinuteRadians - pieByTwo
     val x = centerX + cos(degree) * clockRadius
@@ -80,7 +108,8 @@ fun DrawScope.secondHand(
         start = Offset(centerX, centerY),
         end = Offset(x.toFloat(), y.toFloat()),
         color = color,
-        strokeWidth = 6f
+        strokeWidth = 6f,
+        cap = StrokeCap.Round
     )
 }
 
@@ -89,7 +118,7 @@ fun DrawScope.minuteHand(
     centerY: Float,
     clockRadius: Float,
     animatedMinute: Double,
-    color:Color
+    color: Color
 ) {
     val degree = animatedMinute * oneMinuteRadians - pieByTwo
     val x = centerX + cos(degree) * clockRadius
@@ -98,12 +127,15 @@ fun DrawScope.minuteHand(
         start = Offset(centerX, centerY),
         end = Offset(x.toFloat(), y.toFloat()),
         color = color,
-        strokeWidth = 10f
+        strokeWidth = 8f,
+        cap = StrokeCap.Round
     )
 }
 
-fun DrawScope.hourHand(centerX: Float, centerY: Float, clockRadius: Float, animatedHour: Double,
-                       color:Color) {
+fun DrawScope.hourHand(
+    centerX: Float, centerY: Float, clockRadius: Float, animatedHour: Double,
+    color: Color
+) {
     val degree = animatedHour * oneMinuteRadians - pieByTwo
     val x = centerX + cos(degree) * clockRadius
     val y = centerY + sin(degree) * clockRadius
@@ -111,7 +143,8 @@ fun DrawScope.hourHand(centerX: Float, centerY: Float, clockRadius: Float, anima
         start = Offset(centerX, centerY),
         end = Offset(x.toFloat(), y.toFloat()),
         color = color,
-        strokeWidth = 12f
+        strokeWidth = 8f,
+        cap = StrokeCap.Round
     )
 }
 
