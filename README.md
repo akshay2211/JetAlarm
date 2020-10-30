@@ -1,2 +1,2 @@
 # JetAlarm
-Alarm Application on Android Compose
+Alarm Application on Android Compose with Navigation
