@@ -36,7 +36,6 @@ fun getTimeZones() {
     Log.e(timeZone, "  default ${default.id} ${default.displayName} ${default.dstSavings}")
     TimeZone.getAvailableIDs().forEach {
         Log.e(timeZone, "->${it}")
-
     }
 
 }
