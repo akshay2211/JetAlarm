@@ -10,66 +10,77 @@ import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.savedinstancestate.savedInstanceState
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
-import androidx.ui.tooling.preview.Preview
+import androidx.navigation.compose.*
 import com.pyrocodes.jetalarm.ui.components.TabBarComponent
+import com.pyrocodes.jetalarm.ui.screens.clock.CLOCK_SCREEN
+import com.pyrocodes.jetalarm.ui.screens.clock.clockScreen
+import com.pyrocodes.jetalarm.ui.screens.stopwatch.STOPWATCH_SCREEN
 import com.pyrocodes.jetalarm.ui.theme.JetAlarmTheme
 import com.pyrocodes.jetalarm.utils.setUpStatusNavigationBarColors
+import kotlinx.coroutines.flow.MutableStateFlow
 
 
 class MainActivity : ComponentActivity() {
+    var isLight = MutableStateFlow(true)
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var isLight by mutableStateOf(true)
-
         setContent {
-            JetAlarmApp {
-                JetAlarmTheme(isLight) {
-                    window.setUpStatusNavigationBarColors(
-                        isLight,
-                        MaterialTheme.colors.primaryVariant.hashCode()
-                    )
-                    val allScreens = JetAlarmScreens.values().toList()
-                    var currentScreen by savedInstanceState { JetAlarmScreens.ClockScreen }
-                    Scaffold(
-                        topBar = {
-                            TabBarComponent(
-                                allScreens = allScreens,
-                                onTabSelected = { screen -> currentScreen = screen },
-                                currentScreen = currentScreen
-                            )
-                        },
-                        floatingActionButton = {
-                            FloatingActionButton(onClick = {
-                                isLight = !isLight
-                            }) {
+            var darkTheme = isLight.collectAsState().value
+            JetAlarmTheme(darkTheme) {
+                window?.setUpStatusNavigationBarColors(
+                    darkTheme,
+                    MaterialTheme.colors.primaryVariant.hashCode()
+                )
+                JetAlarmApp()
+            }
+        }
+    }
 
-                            }
+
+    @Composable
+    fun JetAlarmApp() {
+
+        val navController = rememberNavController()
+
+        Scaffold(
+            topBar = {
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
+                TabBarComponent(
+                    onTabSelected = { screen ->
+                        navController.popBackStack(navController.graph.startDestination, false)
+                        // This if check gives us a "singleTop" behavior where we do not create a
+                        // second instance of the composable if we are already on that destination
+                        if (currentRoute != screen.route) {
+                            navController.navigate(screen.route)
                         }
-                    ) { innerPadding ->
-                        Box(Modifier.padding(innerPadding)) {
-                            currentScreen.content(onScreenChange = { screen ->
-                                currentScreen = screen
-                            })
-                        }
-                    }
+                    },
+                    currentScreen = "" + currentRoute
+
+                )
+            },
+            floatingActionButton = {
+                FloatingActionButton(onClick = {
+                    isLight.value = !isLight.value
+                }) {
+
+                }
+            }
+        ) { innerPadding ->
+            Box(Modifier.padding(innerPadding)) {
+                NavHost(navController, startDestination = CLOCK_SCREEN) {
+                    composable(CLOCK_SCREEN) { clockScreen() }
+                    composable(STOPWATCH_SCREEN) { }
                 }
             }
         }
     }
-}
-
-
-@Composable
-fun JetAlarmApp(
-    children: @Composable() () -> Unit
-) {
-    children()
 }
 
 @Composable
@@ -77,11 +88,12 @@ fun Greeting(name: String) {
     Text(text = "Hello $name!", modifier = Modifier.fillMaxSize())
 }
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     JetAlarmTheme {
         Greeting("Android")
     }
-}
+}*/
 

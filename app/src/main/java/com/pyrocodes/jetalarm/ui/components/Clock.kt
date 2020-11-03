@@ -1,6 +1,5 @@
 package com.pyrocodes.jetalarm.ui.components
 
-import android.util.Log
 import androidx.compose.animation.core.*
 import androidx.compose.animation.transition
 import androidx.compose.foundation.Canvas
@@ -32,17 +31,17 @@ import kotlin.math.sin
 val handProgress = FloatPropKey()
 
 @Composable
-fun showClock() {
+fun showClock(timeZone: TimeZone) {
     Box(modifier = Modifier.fillMaxWidth().height(300.dp)) {
-        handMovements()
+        handMovements(timeZone)
         staticUi()
     }
 }
 
 @Composable
-fun handMovements() {
+fun handMovements(timeZone: TimeZone) {
     val state = transition(definition = handAnimations, initState = 0, toState = 1) {}
-    hands(state[handProgress])
+    hands(state[handProgress], timeZone)
 }
 
 @Composable
@@ -67,19 +66,20 @@ fun staticUi() {
 }
 
 @Composable
-fun hands(fl: Float) {
+fun hands(fl: Float, timeZone: TimeZone) {
+    var cal = Calendar.getInstance(timeZone)
     val color = MaterialTheme.colors.primary
     Canvas(modifier = Modifier.fillMaxSize()) {
-        val progression = ((System.currentTimeMillis() % 1000) / 1000.0)
-        Log.e("fl", " -> $fl   $progression")
+        val progression = ((cal.timeInMillis % 1000) / 1000.0)
+        // Log.e("fl", " -> $fl   $progression")
 
 
         val centerX = (size.width / 2)
         val centerY = (size.height / 2)
 
-        val sec = Calendar.getInstance().get(Calendar.SECOND)
-        val min = Calendar.getInstance().get(Calendar.MINUTE)
-        var hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val sec = cal.get(Calendar.SECOND)
+        val min = cal.get(Calendar.MINUTE)
+        var hour = cal.get(Calendar.HOUR_OF_DAY)
         hour = if (hour > 12) hour - 12 else hour
 
         val animatedSecond = sec + progression
@@ -90,7 +90,7 @@ fun hands(fl: Float) {
         minuteHand(centerX, centerY, size.getRadius(0.6f), animatedMinute, color)
         hourHand(centerX, centerY, size.getRadius(0.45f), animatedHour, color)
 
-        Log.e("animated Second Minute", "$animatedSecond $animatedMinute $animatedHour")
+        //Log.e("animated Second Minute", "$animatedSecond $animatedMinute $animatedHour")
     }
 }
 
