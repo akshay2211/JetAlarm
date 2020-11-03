@@ -40,11 +40,10 @@ fun JetAlarmTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composab
     } else {
         LightColorPalette
     }
-
     MaterialTheme(
-            colors = colors,
-            typography = typography,
-            shapes = shapes,
-            content = content
+        colors = colors,
+        typography = typography,
+        shapes = shapes,
+        content = content
     )
 }
