@@ -14,7 +14,14 @@ class ExtentionsKtTest {
     fun getTimeZones() {
         val timeZone = "timezone"
         var default = TimeZone.getDefault()
-        println("$timeZone  default ${default.id} ${default.displayName} ${default.dstSavings} ${default.rawOffset}")
+        println(
+            "$timeZone  default ${default.id} ${
+                default.getDisplayName(
+                    default.useDaylightTime(),
+                    TimeZone.LONG
+                )
+            } ${default.dstSavings} ${default.rawOffset}  ${default.useDaylightTime()}"
+        )
         TimeZone.getAvailableIDs().forEach {
             var default = TimeZone.getTimeZone(it)
             var size1 = 30 - default.id.length
@@ -22,8 +29,8 @@ class ExtentionsKtTest {
             repeat(size1) {
                 name1 += " "
             }
-            var size = 40 - default.displayName.length
-            var name = default.displayName
+            var name = default.getDisplayName(default.useDaylightTime(), TimeZone.LONG)
+            var size = 40 - name.length
             repeat(size) {
                 name += " "
             }
@@ -32,6 +39,11 @@ class ExtentionsKtTest {
                 "$timeZone               $name1 $name ${cal.calendarType}   ${
                     SimpleDateFormat("hh:MM:ss aa").format(
                         cal.time
+                    )
+                }  ${default.useDaylightTime()} ${
+                    default.getDisplayName(
+                        default.useDaylightTime(),
+                        TimeZone.SHORT
                     )
                 }"
             )
