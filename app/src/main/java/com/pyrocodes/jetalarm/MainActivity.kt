@@ -15,15 +15,18 @@ import androidx.compose.ui.platform.setContent
 import androidx.navigation.compose.*
 import com.pyrocodes.jetalarm.ui.components.TabBarComponent
 import com.pyrocodes.jetalarm.ui.screens.clock.CLOCK_SCREEN
+import com.pyrocodes.jetalarm.ui.screens.clock.ClockViewModel
 import com.pyrocodes.jetalarm.ui.screens.clock.clockScreen
 import com.pyrocodes.jetalarm.ui.screens.stopwatch.STOPWATCH_SCREEN
 import com.pyrocodes.jetalarm.ui.theme.JetAlarmTheme
 import com.pyrocodes.jetalarm.utils.setUpStatusNavigationBarColors
 import kotlinx.coroutines.flow.MutableStateFlow
+import org.koin.android.ext.android.inject
 
 
 class MainActivity : ComponentActivity() {
     var isLight = MutableStateFlow(true)
+    val clockViewModel by inject<ClockViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,7 +76,7 @@ class MainActivity : ComponentActivity() {
         ) { innerPadding ->
             Box(Modifier.padding(innerPadding)) {
                 NavHost(navController, startDestination = CLOCK_SCREEN) {
-                    composable(CLOCK_SCREEN) { clockScreen() }
+                    composable(CLOCK_SCREEN) { clockScreen(clockViewModel) }
                     composable(STOPWATCH_SCREEN) { }
                 }
             }

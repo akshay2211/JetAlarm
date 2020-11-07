@@ -7,15 +7,17 @@ import androidx.compose.foundation.lazy.LazyRowFor
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.ui.tooling.preview.Preview
+import com.pyrocodes.jetalarm.data.local.TimesZonesTable
 import com.pyrocodes.jetalarm.ui.components.showClock
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by akshay on 20,October,2020
@@ -24,7 +26,7 @@ import java.util.*
 var CLOCK_SCREEN = "ClockScreen"
 
 @Composable
-fun clockScreen() {
+fun clockScreen(viewModel: ClockViewModel) {
     Column(
         modifier = Modifier.fillMaxSize().padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -39,46 +41,28 @@ fun clockScreen() {
             modifier = Modifier.wrapContentWidth(align = Alignment.End)
                 .padding(12.dp)
         )
-        LazyRowForDemo()
+        LazyRowForDemo(viewModel.liveTimeZonesList.collectAsState(ArrayList<TimesZonesTable>()).value)
 
     }
 }
 
 @Composable
-fun LazyRowForDemo() {
-    LazyRowFor(items = listOf(
-        "A", "B", "C", "D"
-    ) + ((0..100).map { it.toString() }),
+fun LazyRowForDemo(mylist: List<TimesZonesTable>) {
+    mylist.forEach { Log.e("${it.name}", "${it.time_id}") }
+
+    LazyRowFor(items = mylist,
         modifier = Modifier,
         itemContent = { item ->
             Button(onClick = {
+
                 Log.e("hi", "->   $item")
             }, modifier = Modifier.preferredWidth(100.dp).padding(10.dp)) {
-                Text(text = item, style = TextStyle(fontSize = 80.sp))
+                Text(text = item.name, style = TextStyle(fontSize = 80.sp))
             }
 
-            Log.d("COMPOSE", "This get rendered $item")
-            return@LazyRowFor
-            when (item) {
-                "A" -> {
-                    Text(text = item, style = TextStyle(fontSize = 80.sp))
-                }
-                "B" -> {
-                    Button(onClick = {}) {
-                        Text(text = item, style = TextStyle(fontSize = 80.sp))
-                    }
-                }
-                "C" -> {
-                    //Do Nothing
-                }
-                "D" -> {
-                    Text(text = item)
-                }
-                else -> {
-                    Text(text = item, style = TextStyle(fontSize = 80.sp))
-                }
-            }
-        })
+            Log.d("COMPOSE", "This get rendered ${item.name}")
+        }
+    )
 }
 
 @Composable
@@ -105,10 +89,4 @@ fun textClock(value: Date, timeZone: TimeZone) {
         color = MaterialTheme.colors.primary,
         modifier = Modifier.wrapContentWidth(align = Alignment.CenterHorizontally)
     )
-}
-
-@Preview
-@Composable
-fun preview() {
-    clockScreen()
 }
