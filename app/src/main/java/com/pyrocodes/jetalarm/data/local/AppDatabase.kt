@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
  */
 
 @Database(entities = [TimesZonesTable::class], version = 1)
-abstract class LocalDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun timeZoneDao(): TimesZonesTableDao
 }
 
