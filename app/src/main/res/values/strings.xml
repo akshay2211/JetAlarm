@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JetAlarm</string>
+    <string name="clock_screen">Clock</string>
 </resources>
