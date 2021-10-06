@@ -2,48 +2,34 @@ package com.pyrocodes.jetalarm
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.setContent
-import androidx.navigation.compose.*
-import com.pyrocodes.jetalarm.ui.components.TabBarComponent
-import com.pyrocodes.jetalarm.ui.screens.clock.CLOCK_SCREEN
-import com.pyrocodes.jetalarm.ui.screens.clock.ClockViewModel
-import com.pyrocodes.jetalarm.ui.screens.clock.clockScreen
-import com.pyrocodes.jetalarm.ui.screens.stopwatch.STOPWATCH_SCREEN
-import com.pyrocodes.jetalarm.ui.theme.JetAlarmTheme
-import com.pyrocodes.jetalarm.utils.setUpStatusNavigationBarColors
-import kotlinx.coroutines.flow.MutableStateFlow
-import org.koin.android.ext.android.inject
+import androidx.activity.compose.setContent
+import io.ak1.jetalarm.ui.RootView
 
 
 class MainActivity : ComponentActivity() {
-    var isLight = MutableStateFlow(true)
-    val clockViewModel by inject<ClockViewModel>()
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var darkTheme = isLight.collectAsState().value
-            JetAlarmTheme(darkTheme) {
-                window?.setUpStatusNavigationBarColors(
-                    darkTheme,
-                    MaterialTheme.colors.primaryVariant.hashCode()
-                )
-                JetAlarmApp()
-            }
+            RootView(window)
         }
     }
 
+    /* override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContent {
+             var darkTheme = isLight.collectAsState().value
+             JetAlarmTheme(darkTheme) {
+                 window?.setUpStatusNavigationBarColors(
+                     darkTheme,
+                     MaterialTheme.colors.primaryVariant.hashCode()
+                 )
 
+                 // JetAlarmApp()
+             }
+         }
+     }*/
+
+/*
     @Composable
     fun JetAlarmApp() {
 
@@ -81,6 +67,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
+    }*/
 }
 

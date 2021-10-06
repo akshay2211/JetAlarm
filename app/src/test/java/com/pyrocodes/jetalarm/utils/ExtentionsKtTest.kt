@@ -3,6 +3,7 @@ package com.pyrocodes.jetalarm.utils
 import org.junit.Test
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by akshay on 01,November,2020
@@ -48,5 +49,28 @@ class ExtentionsKtTest {
                 }"
             )
         }
+    }
+
+
+    private fun checkCommon(arr1: Array<String>, arr2: Array<String>): Boolean {
+        return arr2.any { arr1.contains(it) }
+        /*  for (i in arr2) {
+              if(arr1.contains(i)){
+                  return true
+              }
+          }
+          return false*/
+    }
+
+    @Test
+    fun checkArray() {
+        var arr1 = ArrayList<String>().apply {
+            repeat(1000) {
+                add("$it")
+            }
+            add("x")
+        }.toTypedArray()
+        var arr2 = arrayOf("u", "v", "w", "x", "y", "z")
+        println("" + checkCommon(arr1, arr2))
     }
 }

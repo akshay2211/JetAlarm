@@ -1,5 +1,6 @@
 package com.pyrocodes.jetalarm.ui.screens.clock
 
+/*
 import android.util.Log
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
@@ -18,11 +19,12 @@ import com.pyrocodes.jetalarm.ui.components.showClock
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+*/
 
 /**
  * Created by akshay on 20,October,2020
  * akshay2211@github.io
- */
+ *//*
 var CLOCK_SCREEN = "ClockScreen"
 
 @Composable
@@ -90,3 +92,4 @@ fun textClock(value: Date, timeZone: TimeZone) {
         modifier = Modifier.wrapContentWidth(align = Alignment.CenterHorizontally)
     )
 }
+*/

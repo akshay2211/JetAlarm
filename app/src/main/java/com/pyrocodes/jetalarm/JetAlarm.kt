@@ -20,7 +20,7 @@ class JetAlarm : MultiDexApplication() {
             // use Android logger - Level.INFO by default
             androidLogger()
             koin.loadModules(listOf(databaseModule, viewModelModule))
-            koin.createRootScope()
+            //koin.createRootScope()
         }
     }
 }
