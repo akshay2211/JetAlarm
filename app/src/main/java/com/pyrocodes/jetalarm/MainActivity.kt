@@ -1,5 +1,6 @@
 package com.pyrocodes.jetalarm
 
+//import androidx.navigation.compose.*
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Box
@@ -7,12 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
-import androidx.navigation.compose.*
 import com.pyrocodes.jetalarm.ui.components.TabBarComponent
 import com.pyrocodes.jetalarm.ui.screens.clock.CLOCK_SCREEN
 import com.pyrocodes.jetalarm.ui.screens.clock.ClockViewModel
@@ -38,7 +39,11 @@ class MainActivity : ComponentActivity() {
                     darkTheme,
                     MaterialTheme.colors.primaryVariant.hashCode()
                 )
-                JetAlarmApp()
+                JetAlarmScreens.ClockScreen(
+                    icon = Icons.Outlined.CheckCircle,//vectorResource(id = R.drawable.ic_replay),
+                    body = { /*clockScreen()*/ }
+                )
+                // JetAlarmApp()
             }
         }
     }
