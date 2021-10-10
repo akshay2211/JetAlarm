@@ -1,9 +1,9 @@
-package com.pyrocodes.jetalarm.di
+package io.ak1.jetalarm.di
 
 import android.content.Context
 import androidx.room.Room
-import com.pyrocodes.jetalarm.data.local.AppDatabase
-import com.pyrocodes.jetalarm.data.local.TimesZonesTableDao
+import io.ak1.jetalarm.data.local.AppDatabase
+import io.ak1.jetalarm.data.local.TimesZonesTableDao
 
 /**
  * Created by akshay on 07,November,2020

@@ -4,10 +4,10 @@ import android.view.Window
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import com.pyrocodes.jetalarm.ui.theme.JetAlarmTheme
-import com.pyrocodes.jetalarm.ui.theme.isSystemInDarkThemeCustom
-import com.pyrocodes.jetalarm.ui.theme.statusBarConfig
 import io.ak1.jetalarm.screens.ClockScreen
+import io.ak1.jetalarm.ui.theme.JetAlarmTheme
+import io.ak1.jetalarm.ui.theme.isSystemInDarkThemeCustom
+import io.ak1.jetalarm.ui.theme.statusBarConfig
 
 /**
  * Created by akshay on 06/10/21

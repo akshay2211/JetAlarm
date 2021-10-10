@@ -1,6 +1,6 @@
-package com.pyrocodes.jetalarm.di
+package io.ak1.jetalarm.di
 
-import com.pyrocodes.jetalarm.ui.screens.clock.ClockViewModel
+import io.ak1.jetalarm.ui.screens.clock.ClockViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

@@ -1,8 +1,8 @@
-package com.pyrocodes.jetalarm.ui.components
+package io.ak1.jetalarm.ui.components
 
 import androidx.compose.ui.unit.dp
 //import com.pyrocodes.jetalarm.ui.screens.clock.CLOCK_SCREEN
-import com.pyrocodes.jetalarm.ui.screens.stopwatch.STOPWATCH_SCREEN
+import io.ak1.jetalarm.ui.screens.stopwatch.STOPWATCH_SCREEN
 
 /**
  * Created by akshay on 18,October,2020

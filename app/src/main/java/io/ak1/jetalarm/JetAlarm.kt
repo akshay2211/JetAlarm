@@ -1,8 +1,8 @@
-package com.pyrocodes.jetalarm
+package io.ak1.jetalarm
 
 import androidx.multidex.MultiDexApplication
-import com.pyrocodes.jetalarm.di.databaseModule
-import com.pyrocodes.jetalarm.di.viewModelModule
+import io.ak1.jetalarm.di.databaseModule
+import io.ak1.jetalarm.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -20,7 +20,6 @@ class JetAlarm : MultiDexApplication() {
             // use Android logger - Level.INFO by default
             androidLogger()
             koin.loadModules(listOf(databaseModule, viewModelModule))
-            //koin.createRootScope()
         }
     }
 }

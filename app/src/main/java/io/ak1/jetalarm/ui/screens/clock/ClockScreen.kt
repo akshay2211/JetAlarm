@@ -1,4 +1,4 @@
-package com.pyrocodes.jetalarm.ui.screens.clock
+package io.ak1.jetalarm.ui.screens.clock
 
 /*
 import android.util.Log

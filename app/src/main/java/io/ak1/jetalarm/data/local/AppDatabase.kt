@@ -1,4 +1,4 @@
-package com.pyrocodes.jetalarm.data.local
+package io.ak1.jetalarm.data.local
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

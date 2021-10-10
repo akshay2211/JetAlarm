@@ -1,4 +1,4 @@
-package com.pyrocodes.jetalarm
+package io.ak1.jetalarm
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

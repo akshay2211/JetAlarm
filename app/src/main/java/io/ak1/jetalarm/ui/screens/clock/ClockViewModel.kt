@@ -1,7 +1,7 @@
-package com.pyrocodes.jetalarm.ui.screens.clock
+package io.ak1.jetalarm.ui.screens.clock
 
 import androidx.lifecycle.ViewModel
-import com.pyrocodes.jetalarm.data.local.TimesZonesTableDao
+import io.ak1.jetalarm.data.local.TimesZonesTableDao
 
 /**
  * Created by akshay on 07,November,2020
