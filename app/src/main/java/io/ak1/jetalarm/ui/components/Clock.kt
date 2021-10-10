@@ -1,4 +1,4 @@
-package com.pyrocodes.jetalarm.ui.components
+package io.ak1.jetalarm.ui.components
 
 /**
  * Created by akshay on 19,October,2020

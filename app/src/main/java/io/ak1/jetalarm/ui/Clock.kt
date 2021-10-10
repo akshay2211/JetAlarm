@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
-import com.pyrocodes.jetalarm.utils.getRadius
+import io.ak1.jetalarm.utils.getRadius
 import java.util.*
 
 /**

@@ -1,4 +1,4 @@
-package com.pyrocodes.jetalarm.ui.theme
+package io.ak1.jetalarm.ui.theme
 
 import android.content.Context
 import android.content.res.Configuration

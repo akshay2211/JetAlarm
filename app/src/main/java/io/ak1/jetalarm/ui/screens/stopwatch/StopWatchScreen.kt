@@ -1,4 +1,4 @@
-package com.pyrocodes.jetalarm.ui.screens.stopwatch
+package io.ak1.jetalarm.ui.screens.stopwatch
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +15,8 @@ var STOPWATCH_SCREEN = "StopwatchScreen"
 
 @Composable
 fun stopWatchScreen() {
-    Column(modifier = Modifier.fillMaxSize().padding(10.dp)) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(10.dp)) {
     }
 }
