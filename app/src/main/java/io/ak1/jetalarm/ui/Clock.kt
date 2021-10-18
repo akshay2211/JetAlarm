@@ -72,8 +72,8 @@ fun hands(fl: Float, timeZone: TimeZone) {
         val animatedHour = (hour + (animatedMinute / 60)) * 5f
 
         secondHand(centerX, centerY, size.getRadius(0.7f), animatedSecond, color)
-        // minuteHand(centerX, centerY, size.getRadius(0.6f), animatedMinute, color)
-        // hourHand(centerX, centerY, size.getRadius(0.45f), animatedHour, color)
+        minuteHand(centerX, centerY, size.getRadius(0.6f), animatedMinute, Color.Red)
+        hourHand(centerX, centerY, size.getRadius(0.45f), animatedHour, color)
 
         //Log.e("animated Second Minute", "$animatedSecond $animatedMinute $animatedHour")
     }
@@ -94,6 +94,41 @@ fun DrawScope.secondHand(
         end = Offset(x.toFloat(), y.toFloat()),
         color = color,
         strokeWidth = 6f,
+        cap = StrokeCap.Round
+    )
+}
+
+fun DrawScope.minuteHand(
+    centerX: Float,
+    centerY: Float,
+    clockRadius: Float,
+    animatedMinute: Double,
+    color: Color
+) {
+    val degree = animatedMinute * oneMinuteRadians - pieByTwo
+    val x = centerX + cos(degree) * clockRadius
+    val y = centerY + sin(degree) * clockRadius
+    drawLine(
+        start = Offset(centerX, centerY),
+        end = Offset(x.toFloat(), y.toFloat()),
+        color = color,
+        strokeWidth = 8f,
+        cap = StrokeCap.Round
+    )
+}
+
+fun DrawScope.hourHand(
+    centerX: Float, centerY: Float, clockRadius: Float, animatedHour: Double,
+    color: Color
+) {
+    val degree = animatedHour * oneMinuteRadians - pieByTwo
+    val x = centerX + cos(degree) * clockRadius
+    val y = centerY + sin(degree) * clockRadius
+    drawLine(
+        start = Offset(centerX, centerY),
+        end = Offset(x.toFloat(), y.toFloat()),
+        color = color,
+        strokeWidth = 8f,
         cap = StrokeCap.Round
     )
 }
