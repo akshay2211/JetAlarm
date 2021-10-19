@@ -5,8 +5,6 @@ import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 
-//import androidx.compose.ui.graphics.vector.VectorAsset
-
 /**
  * Created by akshay on 18,October,2020
  * akshay2211@github.io
