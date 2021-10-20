@@ -35,9 +35,8 @@ fun ClockView(timeZone: TimeZone) {
         typeConverter = Float.VectorConverter,
         animationSpec = infiniteRepeatable(
             animation = tween(1000, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse
+            repeatMode = RepeatMode.Restart
         )
-
     )
     Box(
         modifier = Modifier
@@ -52,6 +51,8 @@ fun ClockView(timeZone: TimeZone) {
 
 @Composable
 fun hands(fl: Float, timeZone: TimeZone) {
+
+
     var cal = Calendar.getInstance(timeZone)
     val color = MaterialTheme.colors.primary
     Canvas(modifier = Modifier.fillMaxSize()) {
@@ -89,7 +90,10 @@ fun DrawScope.secondHand(
     val degree = animatedSecond * oneMinuteRadians - pieByTwo
     val x = centerX + cos(degree) * clockRadius
     val y = centerY + sin(degree) * clockRadius
+    val minusx = centerX + cos(degree) * -30
+    val minusy = centerY + sin(degree) * -30
     drawLine(
+        //start = Offset(minusx.toFloat(), minusy.toFloat()),
         start = Offset(centerX, centerY),
         end = Offset(x.toFloat(), y.toFloat()),
         color = color,
