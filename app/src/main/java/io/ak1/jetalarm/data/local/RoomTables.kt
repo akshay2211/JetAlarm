@@ -16,6 +16,7 @@ const val TIMEZONE_TABLE = "timezones_table"
     tableName = TIMEZONE_TABLE,
     indices = [Index(value = ["time_id"], unique = true)]
 )
+
 data class TimesZonesTable(
     var name: String = "",
     var time_id: String = ""

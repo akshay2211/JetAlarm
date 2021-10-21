@@ -1,4 +1,4 @@
-package io.ak1.jetalarm.ui.screens.clock
+package io.ak1.jetalarm.data.viewmodels
 
 import androidx.lifecycle.ViewModel
 import io.ak1.jetalarm.data.local.TimesZonesTableDao

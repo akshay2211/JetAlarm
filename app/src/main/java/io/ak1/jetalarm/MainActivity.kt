@@ -3,7 +3,7 @@ package io.ak1.jetalarm
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import io.ak1.jetalarm.ui.RootView
+import io.ak1.jetalarm.ui.components.RootView
 
 
 class MainActivity : ComponentActivity() {

@@ -1,50 +1,58 @@
 package io.ak1.jetalarm.ui.components
 
+import androidx.compose.animation.core.*
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.unit.dp
+import io.ak1.jetalarm.utils.getRadius
+import io.ak1.jetalarm.utils.oneMinuteRadians
+import io.ak1.jetalarm.utils.pieByTwo
+import java.util.*
+import kotlin.math.cos
+import kotlin.math.sin
+
 /**
- * Created by akshay on 19,October,2020
- * akshay2211@github.io
+ * Created by akshay on 06/10/21
+ * https://ak1.io
  */
-/*
-
-val handProgress = FloatPropKey()
-
 @Composable
-fun showClock(timeZone: TimeZone) {
-    Box(modifier = Modifier.fillMaxWidth().height(300.dp)) {
-        handMovements(timeZone)
+fun ClockView(timeZone: TimeZone) {
+    val infiniteTransition = rememberInfiniteTransition()
+    val hand = infiniteTransition.animateValue(
+        initialValue = 0f,
+        targetValue = 1000f,
+        typeConverter = Float.VectorConverter,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        )
+    )
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(300.dp)
+    ) {
+        hands(hand.value, timeZone)
+        //handMovements(timeZone)
         staticUi()
     }
 }
 
 @Composable
-fun handMovements(timeZone: TimeZone) {
-    val state = transition(definition = handAnimations, initState = 0, toState = 1) {}
-    hands(state[handProgress], timeZone)
-}
-
-@Composable
-fun staticUi() {
-    val color = MaterialTheme.colors.primary
-    val color2 = MaterialTheme.colors.background
-    Canvas(modifier = Modifier.fillMaxSize()) {
-        drawCircle(
-            color = color,
-            radius = 15f
-        )
-        drawCircle(
-            color = color2,
-            radius = 7f
-        )
-        drawCircle(
-            color = color,
-            radius = size.getRadius(0.8f),
-            style = Stroke(7f)
-        )
-    }
-}
-
-@Composable
 fun hands(fl: Float, timeZone: TimeZone) {
+
+
     var cal = Calendar.getInstance(timeZone)
     val color = MaterialTheme.colors.primary
     Canvas(modifier = Modifier.fillMaxSize()) {
@@ -65,7 +73,7 @@ fun hands(fl: Float, timeZone: TimeZone) {
         val animatedHour = (hour + (animatedMinute / 60)) * 5f
 
         secondHand(centerX, centerY, size.getRadius(0.7f), animatedSecond, color)
-        minuteHand(centerX, centerY, size.getRadius(0.6f), animatedMinute, color)
+        minuteHand(centerX, centerY, size.getRadius(0.6f), animatedMinute, Color.Red)
         hourHand(centerX, centerY, size.getRadius(0.45f), animatedHour, color)
 
         //Log.e("animated Second Minute", "$animatedSecond $animatedMinute $animatedHour")
@@ -82,7 +90,10 @@ fun DrawScope.secondHand(
     val degree = animatedSecond * oneMinuteRadians - pieByTwo
     val x = centerX + cos(degree) * clockRadius
     val y = centerY + sin(degree) * clockRadius
+    val minusx = centerX + cos(degree) * -30
+    val minusy = centerY + sin(degree) * -30
     drawLine(
+        //start = Offset(minusx.toFloat(), minusy.toFloat()),
         start = Offset(centerX, centerY),
         end = Offset(x.toFloat(), y.toFloat()),
         color = color,
@@ -126,23 +137,23 @@ fun DrawScope.hourHand(
     )
 }
 
-
-val handAnimations = transitionDefinition<Int> {
-    state(0) {
-        this[handProgress] = 0f
-    }
-
-    state(1) {
-        this[handProgress] = 1f
-    }
-
-    transition(fromState = 0, toState = 1) {
-        handProgress using repeatable(
-            iterations = AnimationConstants.Infinite,
-            animation = tween(
-                durationMillis = 1000,
-                easing = LinearEasing
-            )
+@Composable
+fun staticUi() {
+    val color = MaterialTheme.colors.primary
+    val color2 = MaterialTheme.colors.background
+    Canvas(modifier = Modifier.fillMaxSize()) {
+        drawCircle(
+            color = color,
+            radius = 15f
+        )
+        drawCircle(
+            color = color2,
+            radius = 7f
+        )
+        drawCircle(
+            color = color,
+            radius = size.getRadius(0.8f),
+            style = Stroke(7f)
         )
     }
-}*/
+}
