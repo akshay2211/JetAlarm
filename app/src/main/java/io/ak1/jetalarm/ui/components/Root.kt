@@ -1,10 +1,10 @@
-package io.ak1.jetalarm.ui
+package io.ak1.jetalarm.ui.components
 
 import android.view.Window
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import io.ak1.jetalarm.screens.ClockScreen
+import io.ak1.jetalarm.ui.screens.ClockScreen
 import io.ak1.jetalarm.ui.theme.JetAlarmTheme
 import io.ak1.jetalarm.ui.theme.isSystemInDarkThemeCustom
 import io.ak1.jetalarm.ui.theme.statusBarConfig
