@@ -15,11 +15,9 @@ class JetAlarm : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            //inject Android context
-            androidContext(applicationContext)
-            // use Android logger - Level.INFO by default
             androidLogger()
-            koin.loadModules(listOf(databaseModule, viewModelModule))
+            androidContext(this@JetAlarm)
+            modules(listOf(databaseModule, viewModelModule))
         }
     }
 }
