@@ -1,11 +1,16 @@
 package io.ak1.jetalarm.ui.components
 
+import android.util.Log
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -13,7 +18,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import io.ak1.jetalarm.data.local.TimesZonesTable
 import io.ak1.jetalarm.data.viewmodels.ClockViewModel
 import io.ak1.jetalarm.utils.getRadius
 import io.ak1.jetalarm.utils.oneMinuteRadians
@@ -55,40 +63,47 @@ fun ClockView(timeZone: TimeZone) {
             hands(hand.value, timeZone)
             staticUi()
         }
-        TextClock(timeZone)
-        //LazyRowForDemo(viewModel.liveTimeZonesList.collectAsState(ArrayList<TimesZonesTable>()).value)
+        TextClock1(timeZone)
+        var date1 = Calendar.getInstance(timeZone).time
+        var date = SimpleDateFormat("hh:mm aa").format(date1)
+        Text(
+            text = date.uppercase(Locale.getDefault()),
+            style = MaterialTheme.typography.h3,
+            color = MaterialTheme.colors.primary,
+            modifier = Modifier.wrapContentWidth(align = Alignment.CenterHorizontally)
+        )
+        LazyRowForDemo(clockViewModel.liveTimeZonesList.collectAsState(ArrayList<TimesZonesTable>()).value)
 
     }
 
 }
 
-/*@Composable
+@Composable
 fun LazyRowForDemo(mylist: List<TimesZonesTable>) {
     mylist.forEach { Log.e("${it.name}", "${it.time_id}") }
-
-    LazyRow(items = mylist,
-        modifier = Modifier,
-        itemContent = { item ->
+    LazyRow(content = {
+        items(mylist) { item ->
             Button(onClick = {
 
                 Log.e("hi", "->   $item")
-            }, modifier = Modifier.preferredWidth(100.dp).padding(10.dp)) {
+            }, modifier = Modifier
+                .width(100.dp)
+                .padding(10.dp)) {
                 Text(text = item.name, style = TextStyle(fontSize = 80.sp))
             }
-
-            Log.d("COMPOSE", "This get rendered ${item.name}")
         }
-    )
-}*/
+
+    })
+}
 
 @Composable
-fun TextClock(timeZone: TimeZone) {
+fun TextClock1(timeZone: TimeZone) {
     var date = Calendar.getInstance(timeZone).time
     var dateText = SimpleDateFormat("E,mm/dd").format(date)
     Spacer(
         modifier = Modifier
             .fillMaxWidth()
-            .height(60.dp)
+            .height(10.dp)
     )
     Text(
         text = dateText,
@@ -96,20 +111,14 @@ fun TextClock(timeZone: TimeZone) {
         color = MaterialTheme.colors.primary,
         modifier = Modifier.wrapContentWidth(align = Alignment.CenterHorizontally)
     )
-    textClock(date, timeZone)
+    // textClock(date, timeZone)
 
 }
 
-@Composable
+/*@Composable
 fun textClock(value: Date, timeZone: TimeZone) {
-    var date = SimpleDateFormat("hh:mm").format(value)
-    Text(
-        text = date,
-        style = MaterialTheme.typography.h3,
-        color = MaterialTheme.colors.primary,
-        modifier = Modifier.wrapContentWidth(align = Alignment.CenterHorizontally)
-    )
-}
+
+}*/
 
 @Composable
 fun hands(unused: Float, timeZone: TimeZone) {
@@ -134,9 +143,9 @@ fun hands(unused: Float, timeZone: TimeZone) {
         val animatedMinute = min + animatedSecond / 60
         val animatedHour = (hour + (animatedMinute / 60)) * 5f
 
-        secondHand(centerX, centerY, size.getRadius(0.7f), animatedSecond, color)
         minuteHand(centerX, centerY, size.getRadius(0.6f), animatedMinute, Color.Red)
         hourHand(centerX, centerY, size.getRadius(0.45f), animatedHour, color)
+        secondHand(centerX, centerY, size.getRadius(0.7f), animatedSecond, color)
     }
 }
 
@@ -157,7 +166,7 @@ fun DrawScope.secondHand(
         start = Offset(centerX, centerY),
         end = Offset(x.toFloat(), y.toFloat()),
         color = color,
-        strokeWidth = 6f,
+        strokeWidth = 4f,
         cap = StrokeCap.Round
     )
 }
