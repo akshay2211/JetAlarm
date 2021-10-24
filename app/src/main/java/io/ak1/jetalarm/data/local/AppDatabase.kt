@@ -18,6 +18,9 @@ interface TimesZonesTableDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(timezones: List<TimesZonesTable>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(timezones: TimesZonesTable)
+
     @Query("DELETE FROM timezones_table WHERE time_id = :time_id")
     suspend fun deleteOne(time_id: String)
 
