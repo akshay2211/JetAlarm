@@ -72,24 +72,32 @@ fun ClockView(timeZone: TimeZone) {
             color = MaterialTheme.colors.primary,
             modifier = Modifier.wrapContentWidth(align = Alignment.CenterHorizontally)
         )
-        LazyRowForDemo(clockViewModel.liveTimeZonesList.collectAsState(ArrayList<TimesZonesTable>()).value)
+        //Image(painter = painterResource(id = R.drawable.add_icon), contentDescription = "add icon")
+        LazyRowForDemo(clockViewModel)
 
     }
 
 }
 
 @Composable
-fun LazyRowForDemo(mylist: List<TimesZonesTable>) {
-    mylist.forEach { Log.e("${it.name}", "${it.time_id}") }
+fun LazyRowForDemo(clockViewModel: ClockViewModel) {
+    val myList: List<TimesZonesTable> =
+        clockViewModel.liveTimeZonesList.collectAsState(ArrayList<TimesZonesTable>()).value
+    if (myList.isEmpty()) {
+        clockViewModel.prePopulateDefaultTimeZone()
+    }
+    myList.forEach { Log.e("${it.name}", "${it.time_id}") }
     LazyRow(content = {
-        items(mylist) { item ->
-            Button(onClick = {
-
-                Log.e("hi", "->   $item")
-            }, modifier = Modifier
-                .width(100.dp)
-                .padding(10.dp)) {
-                Text(text = item.name, style = TextStyle(fontSize = 80.sp))
+        items(myList) { item ->
+            Button(
+                onClick = {
+                    Log.e("hi", "->   $item")
+                }, modifier = Modifier
+                    .width(200.dp)
+                    .height(60.dp)
+                    .padding(10.dp)
+            ) {
+                Text(text = item.name, style = TextStyle(fontSize = 20.sp))
             }
         }
 
@@ -111,14 +119,8 @@ fun TextClock1(timeZone: TimeZone) {
         color = MaterialTheme.colors.primary,
         modifier = Modifier.wrapContentWidth(align = Alignment.CenterHorizontally)
     )
-    // textClock(date, timeZone)
-
 }
 
-/*@Composable
-fun textClock(value: Date, timeZone: TimeZone) {
-
-}*/
 
 @Composable
 fun hands(unused: Float, timeZone: TimeZone) {
