@@ -6,7 +6,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -89,15 +89,17 @@ fun LazyRowForDemo(clockViewModel: ClockViewModel) {
     myList.forEach { Log.e("${it.name}", "${it.time_id}") }
     LazyRow(content = {
         items(myList) { item ->
-            Button(
-                onClick = {
-                    Log.e("hi", "->   $item")
-                }, modifier = Modifier
-                    .width(200.dp)
-                    .height(60.dp)
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
                     .padding(10.dp)
             ) {
                 Text(text = item.name, style = TextStyle(fontSize = 20.sp))
+                Divider(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .height(1.dp)
+                )
             }
         }
 
