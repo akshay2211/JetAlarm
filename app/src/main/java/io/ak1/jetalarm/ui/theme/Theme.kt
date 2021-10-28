@@ -24,30 +24,32 @@ import kotlinx.coroutines.runBlocking
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 val themePreferenceKey = intPreferencesKey("list_theme")
+val clockPreferenceKey = intPreferencesKey("clock_type")
 
 private val DarkColorPalette = darkColors(
-    primary = Color.White,
-    primaryVariant = Color.Black,
-    secondary = Color.DarkGray,
-    background = Color.Black,
-
-    // onSurface = Color.DarkGray
+    primary = Black200,
+    primaryVariant = Color.Gray,
+    secondaryVariant = Color.White,
+    secondary = Teal200,
+    onPrimary = Color.White,
+    onSecondary = Black200,
 )
 
 private val LightColorPalette = lightColors(
-        primary = Color.DarkGray,
-        primaryVariant = Color.White,
-        secondary = Color.DarkGray,
+    primary = Color.White,
+    primaryVariant = Color.Gray,
+    secondaryVariant = Color.Black,
+    secondary = White200,
+    onPrimary = Color.Black,
+
+    /* Other default colors to override
     background = Color.White,
-
-   // onSurface = Color.White
-
-  /*  background = Color.White,
     surface = Color.White,
     onPrimary = Color.White,
     onSecondary = Color.Black,
     onBackground = Color.Black,
-    onSurface = Color.Black,*/
+    onSurface = Color.Black,
+    */
 )
 
 @Composable
