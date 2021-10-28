@@ -18,9 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import io.ak1.jetalarm.data.local.TimesZonesTable
 import io.ak1.jetalarm.data.viewmodels.ClockViewModel
 import io.ak1.jetalarm.utils.getRadius
@@ -54,24 +52,36 @@ fun ClockView(timeZone: TimeZone) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .padding(20.dp)
     ) {
+        Spacer(
+            modifier = Modifier
+                .height(40.dp)
+                .fillMaxWidth()
+        )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(300.dp)
         ) {
-            hands(hand.value, timeZone)
+            hands(hand.value, timeZone, currentClockType())
             staticUi()
         }
-        TextClock1(timeZone)
+        Spacer(
+            modifier = Modifier
+                .height(60.dp)
+                .fillMaxWidth()
+        )
+
         var date1 = Calendar.getInstance(timeZone).time
         var date = SimpleDateFormat("hh:mm aa").format(date1)
         Text(
             text = date.uppercase(Locale.getDefault()),
             style = MaterialTheme.typography.h3,
-            color = MaterialTheme.colors.primary,
+            color = MaterialTheme.colors.onPrimary,
             modifier = Modifier.wrapContentWidth(align = Alignment.CenterHorizontally)
         )
+        TextClock1(timeZone)
         //Image(painter = painterResource(id = R.drawable.add_icon), contentDescription = "add icon")
         LazyRowForDemo(clockViewModel)
 
@@ -89,15 +99,25 @@ fun LazyRowForDemo(clockViewModel: ClockViewModel) {
     myList.forEach { Log.e("${it.name}", "${it.time_id}") }
     LazyRow(content = {
         items(myList) { item ->
+            var timezone = TimeZone.getTimeZone(item.time_id)
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(10.dp)
+                    .fillMaxWidth()
+                    .height(100.dp)
             ) {
-                Text(text = item.name, style = TextStyle(fontSize = 20.sp))
+
+                Text(
+                    text = item.name, style = MaterialTheme.typography.h5,
+                    color = MaterialTheme.colors.onPrimary
+                )
+                Text(
+                    text = "${timezone.id} ${timezone.offset()}",
+                    style = MaterialTheme.typography.subtitle1,
+                    color = MaterialTheme.colors.onPrimary
+                )
                 Divider(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
                         .height(1.dp)
                 )
             }
@@ -110,26 +130,30 @@ fun LazyRowForDemo(clockViewModel: ClockViewModel) {
 fun TextClock1(timeZone: TimeZone) {
     var date = Calendar.getInstance(timeZone).time
     var dateText = SimpleDateFormat("E,mm/dd").format(date)
-    Spacer(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(10.dp)
-    )
     Text(
         text = dateText,
         style = MaterialTheme.typography.subtitle1,
-        color = MaterialTheme.colors.primary,
+        color = MaterialTheme.colors.onPrimary,
         modifier = Modifier.wrapContentWidth(align = Alignment.CenterHorizontally)
     )
+    Spacer(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(20.dp)
+    )
+}
+
+enum class ClockType {
+    CLOCK_ONE, CLOCK_TWO
 }
 
 
 @Composable
-fun hands(unused: Float, timeZone: TimeZone) {
+fun hands(unused: Float, timeZone: TimeZone, clockType: ClockType) {
 
 
     var cal = Calendar.getInstance(timeZone)
-    val color = MaterialTheme.colors.primary
+    val color = MaterialTheme.colors.onPrimary
     Canvas(modifier = Modifier.fillMaxSize()) {
         val progression = ((cal.timeInMillis % 1000) / 1000.0)
         // Log.e("fl", " -> $fl   $progression")
@@ -146,10 +170,14 @@ fun hands(unused: Float, timeZone: TimeZone) {
         val animatedSecond = sec + progression
         val animatedMinute = min + animatedSecond / 60
         val animatedHour = (hour + (animatedMinute / 60)) * 5f
-
-        minuteHand(centerX, centerY, size.getRadius(0.6f), animatedMinute, Color.Red)
-        hourHand(centerX, centerY, size.getRadius(0.45f), animatedHour, color)
-        secondHand(centerX, centerY, size.getRadius(0.7f), animatedSecond, color)
+        if (clockType == ClockType.CLOCK_ONE) {
+            minuteHand(centerX, centerY, size.getRadius(0.6f), animatedMinute, color)
+            hourHand(centerX, centerY, size.getRadius(0.45f), animatedHour, Color.Red)
+            secondHand(centerX, centerY, size.getRadius(0.7f), animatedSecond, color)
+        } else {
+            hourHand2(centerX, centerY, size.getRadius(0.45f), animatedHour, color)
+            minuteHand2(centerX, centerY, size.getRadius(0.6f), animatedMinute, color)
+        }
     }
 }
 
@@ -212,7 +240,7 @@ fun DrawScope.hourHand(
 
 @Composable
 fun staticUi() {
-    val color = MaterialTheme.colors.primary
+    val color = MaterialTheme.colors.onPrimary
     val color2 = MaterialTheme.colors.background
     Canvas(modifier = Modifier.fillMaxSize()) {
         drawCircle(
@@ -229,4 +257,45 @@ fun staticUi() {
             style = Stroke(7f)
         )
     }
+}
+
+
+// second clock UI methods
+fun DrawScope.minuteHand2(
+    centerX: Float,
+    centerY: Float,
+    clockRadius: Float,
+    animatedMinute: Double,
+    color: Color
+) {
+    val degree = animatedMinute * oneMinuteRadians - pieByTwo
+    val x = centerX + cos(degree) * clockRadius
+    val y = centerY + sin(degree) * clockRadius
+    val minusx = centerX + cos(degree) * -30
+    val minusy = centerY + sin(degree) * -30
+    drawLine(
+        start = Offset(minusx.toFloat(), minusy.toFloat()),
+        end = Offset(x.toFloat(), y.toFloat()),
+        color = color,
+        strokeWidth = 8f,
+        cap = StrokeCap.Round
+    )
+}
+
+fun DrawScope.hourHand2(
+    centerX: Float, centerY: Float, clockRadius: Float, animatedHour: Double,
+    color: Color
+) {
+    val degree = animatedHour * oneMinuteRadians - pieByTwo
+    val x = centerX + cos(degree) * clockRadius
+    val y = centerY + sin(degree) * clockRadius
+    val minusx = centerX + cos(degree) * -30
+    val minusy = centerY + sin(degree) * -30
+    drawLine(
+        start = Offset(minusx.toFloat(), minusy.toFloat()),
+        end = Offset(x.toFloat(), y.toFloat()),
+        color = color,
+        strokeWidth = 8f,
+        cap = StrokeCap.Round
+    )
 }
