@@ -1,4 +1,4 @@
-# JetAlarm [Under Development]
+# JetAlarm (work-in-progress)
 JetAlarm is an Android Application written on Jetpack-Compose<Br>
 It follows MVVM Architecture and include below librries
 
