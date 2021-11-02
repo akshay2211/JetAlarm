@@ -1,9 +1,27 @@
-# JetAlarm [Under Development]
-Alarm Application on Android Compose with Navigation
+# JetAlarm (work-in-progress)
+JetAlarm is an Android Application written on Jetpack-Compose<Br>
+It follows MVVM Architecture and include below librries
+
+1. [Jetpack-Compose](https://developer.android.com/jetpack/compose)
+2. [Room](https://developer.android.com/reference/android/arch/persistence/room/RoomDatabase)
+3. [Coroutines](https://developer.android.com/kotlin/coroutines)
+4. [DataStore](https://developer.android.com/topic/libraries/architecture/datastore)
+5. [Navigation](https://developer.android.com/jetpack/compose/navigation)
+6. [Koin](https://insert-koin.io/)
+  
+[](media/clock.gif)
+![Demo for JetAlarm](media/clock.gif "Demo for JetAlarm").
+
+  
+
 
 Screenshots
 -----------
 <img src="media/dark_clock_1.png" width="25%"/><img src="media/light_clock_1.png" width="25%"/><img src="media/dark_clock_2.png" width="25%"/><img src="media/light_clock_2.png" width="25%"/>
+  
+Whats Coming Next
+----------------
+Currenty JetAlarm only contains a Clock screen, rest of the full fledged Alarm app functionality is on its way.
 
 
 License
