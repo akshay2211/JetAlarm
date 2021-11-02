@@ -3,6 +3,7 @@ package io.ak1.jetalarm.ui.components
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,7 +35,7 @@ fun DefaultAppBar(
         Image(
             painter = painterResource(iconId),
             contentDescription = stringResource(id = R.string.navigate_back),
-            colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary),
+            colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
             modifier = Modifier
                 .clickable {
                     navController.navigateUp()
@@ -52,12 +53,14 @@ fun DefaultAppBar(
 fun BottomBar(
     navController: NavController
 ) {
-    Row(modifier = Modifier.padding(4.dp)) {
+    Row(modifier = Modifier
+        .background(MaterialTheme.colors.background)
+        .padding(4.dp)) {
         Spacer(modifier = Modifier.weight(1f, true))
         Image(
             painter = painterResource(R.drawable.ic_clock),
             contentDescription = stringResource(id = R.string.image_desc),
-            colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary),
+            colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
             modifier = Modifier
                 .clickable {
                     navController.navigate(Destinations.HOME_ROUTE)
@@ -67,7 +70,7 @@ fun BottomBar(
         Image(
             painter = painterResource(R.drawable.ic_bell),
             contentDescription = stringResource(id = R.string.image_desc),
-            colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary),
+            colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
             modifier = Modifier
                 .clickable {
                     navController.navigate(Destinations.HOME_ROUTE)
@@ -77,7 +80,7 @@ fun BottomBar(
         Image(
             painter = painterResource(R.drawable.ic_settings),
             contentDescription = stringResource(id = R.string.image_desc),
-            colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary),
+            colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
             modifier = Modifier
                 .clickable {
                     navController.navigate(Destinations.SETTINGS_ROUTE)

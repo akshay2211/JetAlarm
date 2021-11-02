@@ -16,7 +16,6 @@ class MainActivity : ComponentActivity() {
             RootView(window)
         }
     }
-
     @Composable
     @Preview
     fun Preview() {

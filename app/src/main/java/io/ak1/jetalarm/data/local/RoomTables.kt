@@ -17,7 +17,8 @@ const val TIMEZONE_TABLE = "timezones_table"
 )
 data class TimesZonesTable(
     var name: String = "",
-    var time_id: String = ""
+    var time_id: String = "",
+    var selected: Boolean = false
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
