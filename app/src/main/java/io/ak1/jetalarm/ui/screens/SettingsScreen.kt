@@ -152,7 +152,6 @@ fun SettingsScreen(navController: NavController) {
                         )
                     }
                     Switch(
-                        colors = SwitchDefaults.colors(uncheckedThumbColor = MaterialTheme.colors.secondaryVariant),
                         onCheckedChange = {
                             coroutineScope.launch {
                                 context.dataStore.edit { settings ->

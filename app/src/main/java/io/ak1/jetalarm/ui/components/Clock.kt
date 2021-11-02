@@ -43,7 +43,7 @@ fun ClockView(timeZone: TimeZone) {
     ) {
         Spacer(
             modifier = Modifier
-                .height(20.dp)
+                .height(60.dp)
                 .fillMaxWidth()
         )
         Box(
@@ -56,7 +56,7 @@ fun ClockView(timeZone: TimeZone) {
         }
         Spacer(
             modifier = Modifier
-                .height(20.dp)
+                .height(80.dp)
                 .fillMaxWidth()
         )
         //Image(painter = painterResource(id = R.drawable.add_icon), contentDescription = "add icon")
@@ -75,7 +75,8 @@ fun hands(unused: Float, timeZone: TimeZone, clockType: ClockType) {
 
 
     var cal = Calendar.getInstance(timeZone)
-    val color = MaterialTheme.colors.onPrimary
+    val color = MaterialTheme.colors.primary
+    val colorSecondary: Color = MaterialTheme.colors.secondary
     Canvas(modifier = Modifier.fillMaxSize()) {
         val progression = ((cal.timeInMillis % 1000) / 1000.0)
         // Log.e("fl", " -> $fl   $progression")
@@ -93,8 +94,9 @@ fun hands(unused: Float, timeZone: TimeZone, clockType: ClockType) {
         val animatedMinute = min + animatedSecond / 60
         val animatedHour = (hour + (animatedMinute / 60)) * 5f
         if (clockType == ClockType.CLOCK_ONE) {
+
             minuteHand(centerX, centerY, size.getRadius(0.6f), animatedMinute, color)
-            hourHand(centerX, centerY, size.getRadius(0.45f), animatedHour, Color.Red)
+            hourHand(centerX, centerY, size.getRadius(0.45f), animatedHour, colorSecondary)
             secondHand(centerX, centerY, size.getRadius(0.7f), animatedSecond, color)
         } else {
             hourHand2(centerX, centerY, size.getRadius(0.45f), animatedHour, color)
@@ -162,7 +164,7 @@ fun DrawScope.hourHand(
 
 @Composable
 fun staticUi() {
-    val color = MaterialTheme.colors.onPrimary
+    val color = MaterialTheme.colors.primary
     val color2 = MaterialTheme.colors.background
     Canvas(modifier = Modifier.fillMaxSize()) {
         drawCircle(
