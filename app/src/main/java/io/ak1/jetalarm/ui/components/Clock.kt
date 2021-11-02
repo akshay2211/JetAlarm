@@ -4,9 +4,7 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -17,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import io.ak1.jetalarm.utils.getRadius
 import io.ak1.jetalarm.utils.oneMinuteRadians
 import io.ak1.jetalarm.utils.pieByTwo
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.cos
 import kotlin.math.sin
@@ -62,38 +59,11 @@ fun ClockView(timeZone: TimeZone) {
                 .height(20.dp)
                 .fillMaxWidth()
         )
-
-        var date1 = Calendar.getInstance(timeZone).time
-        var date = SimpleDateFormat("hh:mm aa").format(date1)
-        Text(
-            text = date.uppercase(Locale.getDefault()),
-            style = MaterialTheme.typography.h3,
-            color = MaterialTheme.colors.onPrimary,
-            modifier = Modifier.wrapContentWidth(align = Alignment.CenterHorizontally)
-        )
-        TextClock1(timeZone)
         //Image(painter = painterResource(id = R.drawable.add_icon), contentDescription = "add icon")
     }
 
 }
 
-
-@Composable
-fun TextClock1(timeZone: TimeZone) {
-    var date = Calendar.getInstance(timeZone).time
-    var dateText = SimpleDateFormat("E,mm/dd").format(date)
-    Text(
-        text = dateText,
-        style = MaterialTheme.typography.subtitle1,
-        color = MaterialTheme.colors.onPrimary,
-        modifier = Modifier.wrapContentWidth(align = Alignment.CenterHorizontally)
-    )
-    Spacer(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(20.dp)
-    )
-}
 
 enum class ClockType {
     CLOCK_ONE, CLOCK_TWO
