@@ -17,6 +17,12 @@ import java.util.*
  * https://ak1.io
  */
 
+
+enum class ClockType {
+    CLOCK_ONE, CLOCK_TWO
+}
+
+
 fun Context.getClockType() = dataStore.data
     .map { preferences ->
         // No type safety.

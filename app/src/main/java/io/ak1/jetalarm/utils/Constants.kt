@@ -19,3 +19,4 @@ val clockPreferenceKey = intPreferencesKey("clock_type")
 const val DATE_FORMAT_AA = "aa"
 const val DATE_FORMAT_TIME = "hh:mm aa"
 const val DATE_FORMAT_DAY_DATE = "EEE , dd/MM"
+const val DATE_FORMAT_FULL = "hh:mm aa, EEE , dd/MM"
