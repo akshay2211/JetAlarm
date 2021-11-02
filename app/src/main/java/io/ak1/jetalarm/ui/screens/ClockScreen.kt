@@ -26,6 +26,9 @@ import io.ak1.jetalarm.R
 import io.ak1.jetalarm.data.local.TimesZonesTable
 import io.ak1.jetalarm.data.viewmodels.ClockViewModel
 import io.ak1.jetalarm.ui.components.ClockView
+import io.ak1.jetalarm.utils.DATE_FORMAT_AA
+import io.ak1.jetalarm.utils.DATE_FORMAT_DAY_DATE
+import io.ak1.jetalarm.utils.DATE_FORMAT_TIME
 import org.koin.java.KoinJavaComponent.inject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -105,9 +108,10 @@ fun TimeZoneListRowView(timeZoneItem: TimesZonesTable) {
             .height(70.dp)
     ) {
         val date = Date()
-        val ampm = SimpleDateFormat("aa").apply { setTimeZone(timeZone) }.format(date)
-        val time = SimpleDateFormat("hh:mm aa").apply { setTimeZone(timeZone) }.format(date)
-        val day = SimpleDateFormat("EEE , dd/MM").apply { setTimeZone(timeZone) }.format(date)
+        val ampm = SimpleDateFormat(DATE_FORMAT_AA).apply { setTimeZone(timeZone) }.format(date)
+        val time = SimpleDateFormat(DATE_FORMAT_TIME).apply { setTimeZone(timeZone) }.format(date)
+        val day =
+            SimpleDateFormat(DATE_FORMAT_DAY_DATE).apply { setTimeZone(timeZone) }.format(date)
 
         Column(modifier = Modifier.weight(1f, fill = true)) {
             Text(

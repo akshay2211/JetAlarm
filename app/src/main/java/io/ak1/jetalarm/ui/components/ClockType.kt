@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
-import io.ak1.jetalarm.ui.theme.clockPreferenceKey
-import io.ak1.jetalarm.ui.theme.dataStore
+import io.ak1.jetalarm.utils.clockPreferenceKey
+import io.ak1.jetalarm.utils.dataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
