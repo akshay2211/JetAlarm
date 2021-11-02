@@ -1,16 +1,11 @@
 package io.ak1.jetalarm.ui.components
 
-import android.util.Log
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -19,12 +14,9 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
-import io.ak1.jetalarm.data.local.TimesZonesTable
-import io.ak1.jetalarm.data.viewmodels.ClockViewModel
 import io.ak1.jetalarm.utils.getRadius
 import io.ak1.jetalarm.utils.oneMinuteRadians
 import io.ak1.jetalarm.utils.pieByTwo
-import org.koin.java.KoinJavaComponent.inject
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.cos
@@ -38,7 +30,6 @@ import kotlin.math.sin
 @Composable
 fun ClockView(timeZone: TimeZone) {
     val infiniteTransition = rememberInfiniteTransition()
-    val clockViewModel by inject<ClockViewModel>(ClockViewModel::class.java)
 
     val hand = infiniteTransition.animateValue(
         initialValue = 0f,
@@ -52,11 +43,10 @@ fun ClockView(timeZone: TimeZone) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp)
     ) {
         Spacer(
             modifier = Modifier
-                .height(40.dp)
+                .height(20.dp)
                 .fillMaxWidth()
         )
         Box(
@@ -69,7 +59,7 @@ fun ClockView(timeZone: TimeZone) {
         }
         Spacer(
             modifier = Modifier
-                .height(60.dp)
+                .height(20.dp)
                 .fillMaxWidth()
         )
 
@@ -83,48 +73,10 @@ fun ClockView(timeZone: TimeZone) {
         )
         TextClock1(timeZone)
         //Image(painter = painterResource(id = R.drawable.add_icon), contentDescription = "add icon")
-        LazyRowForDemo(clockViewModel)
-
     }
 
 }
 
-@Composable
-fun LazyRowForDemo(clockViewModel: ClockViewModel) {
-    val myList: List<TimesZonesTable> =
-        clockViewModel.liveTimeZonesList.collectAsState(ArrayList<TimesZonesTable>()).value
-    if (myList.isEmpty()) {
-        clockViewModel.prePopulateDefaultTimeZone()
-    }
-    myList.forEach { Log.e("${it.name}", "${it.time_id}") }
-    LazyRow(content = {
-        items(myList) { item ->
-            var timezone = TimeZone.getTimeZone(item.time_id)
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-            ) {
-
-                Text(
-                    text = item.name, style = MaterialTheme.typography.h5,
-                    color = MaterialTheme.colors.onPrimary
-                )
-                Text(
-                    text = "${timezone.id} ${timezone.offset()}",
-                    style = MaterialTheme.typography.subtitle1,
-                    color = MaterialTheme.colors.onPrimary
-                )
-                Divider(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(1.dp)
-                )
-            }
-        }
-
-    })
-}
 
 @Composable
 fun TextClock1(timeZone: TimeZone) {
