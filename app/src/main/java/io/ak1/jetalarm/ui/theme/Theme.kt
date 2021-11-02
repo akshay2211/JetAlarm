@@ -12,18 +12,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.intPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
+import io.ak1.jetalarm.utils.dataStore
+import io.ak1.jetalarm.utils.themePreferenceKey
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 
-
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
-val themePreferenceKey = intPreferencesKey("list_theme")
-val clockPreferenceKey = intPreferencesKey("clock_type")
 
 private val DarkColorPalette = darkColors(
     primary = White200,

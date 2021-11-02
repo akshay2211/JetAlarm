@@ -18,10 +18,10 @@ import androidx.navigation.NavController
 import io.ak1.jetalarm.R
 import io.ak1.jetalarm.ui.components.DefaultAppBar
 import io.ak1.jetalarm.ui.components.getClockType
-import io.ak1.jetalarm.ui.theme.clockPreferenceKey
-import io.ak1.jetalarm.ui.theme.dataStore
 import io.ak1.jetalarm.ui.theme.isDarkThemeOn
-import io.ak1.jetalarm.ui.theme.themePreferenceKey
+import io.ak1.jetalarm.utils.clockPreferenceKey
+import io.ak1.jetalarm.utils.dataStore
+import io.ak1.jetalarm.utils.themePreferenceKey
 import kotlinx.coroutines.launch
 
 @Composable

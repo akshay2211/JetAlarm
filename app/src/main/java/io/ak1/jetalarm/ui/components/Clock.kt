@@ -64,15 +64,8 @@ fun ClockView(timeZone: TimeZone) {
 
 }
 
-
-enum class ClockType {
-    CLOCK_ONE, CLOCK_TWO
-}
-
-
 @Composable
 fun hands(unused: Float, timeZone: TimeZone, clockType: ClockType) {
-
 
     var cal = Calendar.getInstance(timeZone)
     val color = MaterialTheme.colors.primary
