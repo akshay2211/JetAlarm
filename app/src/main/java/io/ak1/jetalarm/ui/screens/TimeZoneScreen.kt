@@ -11,6 +11,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -19,6 +20,7 @@ import io.ak1.jetalarm.R
 import io.ak1.jetalarm.data.viewmodels.ClockViewModel
 import io.ak1.jetalarm.ui.components.DefaultAppBar
 import io.ak1.jetalarm.ui.components.TimeZoneListRowSmallView
+import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
 /**
@@ -31,7 +33,9 @@ fun TimeZoneScreen(navController: NavController) {
     val viewModel by inject<ClockViewModel>(ClockViewModel::class.java)
     val selectedTimeZones = viewModel.selectedTimeZoneList().collectAsState(initial = emptyList())
     val allTimeZones = viewModel.timeZoneList().collectAsState(initial = emptyList())
+    val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -44,6 +48,7 @@ fun TimeZoneScreen(navController: NavController) {
                 DefaultAppBar(titleId = R.string.time_zone_title, navController = navController)
             }
         ) {
+
             LazyColumn(content = {
 
                 if (selectedTimeZones.value.isNotEmpty()) {
@@ -55,7 +60,7 @@ fun TimeZoneScreen(navController: NavController) {
                     }
                     items(selectedTimeZones.value) { item ->
                         TimeZoneListRowSmallView(item) {
-                            viewModel.updateTimeZone(item)
+                            viewModel.updateTimeZone(item) {}
                         }
                     }
                 }
@@ -67,7 +72,24 @@ fun TimeZoneScreen(navController: NavController) {
                 }
                 items(allTimeZones.value) { item ->
                     TimeZoneListRowSmallView(item) {
-                        viewModel.updateTimeZone(item)
+                        viewModel.updateTimeZone(item) {
+                            coroutineScope.launch {
+                                if (it) {
+                                    listState.scrollToItem(
+
+                                        listState.firstVisibleItemIndex + 1,
+                                        listState.firstVisibleItemScrollOffset
+                                    )
+                                } else {
+                                    if (listState.firstVisibleItemIndex > 0) {
+                                        listState.scrollToItem(
+                                            listState.firstVisibleItemIndex - 1,
+                                            listState.firstVisibleItemScrollOffset
+                                        )
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }, modifier = Modifier.padding(16.dp, 0.dp), state = listState)

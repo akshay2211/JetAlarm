@@ -1,4 +1,4 @@
-package io.ak1.jetalarm.ui.components
+package io.ak1.jetalarm.ui.components.clock
 
 import android.content.Context
 import androidx.compose.runtime.Composable

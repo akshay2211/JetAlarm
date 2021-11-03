@@ -25,8 +25,13 @@ class ClockViewModel(private val db: TimesZonesTableDao) : ViewModel() {
         }
     }
 
-    fun updateTimeZone(timesZonesTable: TimesZonesTable) = viewModelScope.launch {
-        db.update(timesZonesTable.apply { selected = !selected })
-    }
+    fun updateTimeZone(timesZonesTable: TimesZonesTable, isSelected: (Boolean) -> Unit) =
+        viewModelScope.launch {
+            db.update(timesZonesTable.apply {
+                selected = !selected
+                isSelected(selected)
+            })
+
+        }
 
 }
