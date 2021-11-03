@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import io.ak1.jetalarm.ui.screens.ClockScreen
 import io.ak1.jetalarm.ui.screens.Destinations
 import io.ak1.jetalarm.ui.screens.SettingsScreen
+import io.ak1.jetalarm.ui.screens.TimeZoneScreen
 import io.ak1.jetalarm.ui.theme.JetAlarmTheme
 import io.ak1.jetalarm.ui.theme.isSystemInDarkThemeCustom
 import io.ak1.jetalarm.ui.theme.statusBarConfig
@@ -40,7 +41,10 @@ fun RootView(window: Window) {
                     startDestination = Destinations.HOME_ROUTE
                 ) {
                     composable(Destinations.HOME_ROUTE) {
-                        ClockScreen()
+                        ClockScreen(navController)
+                    }
+                    composable(Destinations.TIMEZONE_ROUTE) {
+                        TimeZoneScreen(navController)
                     }
                     composable(Destinations.SETTINGS_ROUTE) {
                         SettingsScreen(navController)

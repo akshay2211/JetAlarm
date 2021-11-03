@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import io.ak1.jetalarm.R
 import io.ak1.jetalarm.data.viewmodels.ClockViewModel
 import io.ak1.jetalarm.ui.components.ClockView
@@ -31,9 +32,9 @@ import java.util.*
  */
 
 @Composable
-fun ClockScreen() {
+fun ClockScreen(navController: NavController) {
     val viewModel by inject<ClockViewModel>(ClockViewModel::class.java)
-    val list = viewModel.timeZoneList().collectAsState(initial = emptyList())
+    val list = viewModel.selectedTimeZoneList().collectAsState(initial = emptyList())
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -68,7 +69,7 @@ fun ClockScreen() {
             )
             FloatingActionButton(
                 onClick = {
-                    // TODO: 02/11/21 new Screen to be created for selecting other timezones
+                    navController.navigate(Destinations.TIMEZONE_ROUTE)
                 },
                 shape = CircleShape,
                 modifier = Modifier
