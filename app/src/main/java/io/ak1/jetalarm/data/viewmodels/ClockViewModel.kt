@@ -5,8 +5,6 @@ import androidx.lifecycle.viewModelScope
 import io.ak1.jetalarm.data.local.TimesZonesTable
 import io.ak1.jetalarm.data.local.TimesZonesTableDao
 import io.ak1.jetalarm.utils.getTimeZones
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 /**
@@ -16,31 +14,14 @@ import kotlinx.coroutines.launch
 class ClockViewModel(private val db: TimesZonesTableDao) : ViewModel() {
 
 
-    fun timeZoneList(): Flow<List<TimesZonesTable>> {
-        var list: MutableStateFlow<List<TimesZonesTable>> =
-            MutableStateFlow(emptyList())
-        viewModelScope.launch {
-            prePopulateDataBase()
-            list.value = db.getAllTimeZones()
-        }
-        return list
-    }
+    fun timeZoneList() = db.getAllTimeZones()
 
-
-    fun selectedTimeZoneList(): Flow<List<TimesZonesTable>> {
-        var list: MutableStateFlow<List<TimesZonesTable>> =
-            MutableStateFlow(emptyList())
-        viewModelScope.launch {
-            list.value = db.getSelectedTimeZones()
-        }
-        return list
-    }
+    fun selectedTimeZoneList() = db.getSelectedTimeZones()
 
     private suspend fun prePopulateDataBase() {
         if (db.count() == 0) {
             val list = getTimeZones()
             db.insert(list)
-            db.update(db.getTimeZone(10).apply { selected = true })
         }
     }
 

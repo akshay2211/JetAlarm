@@ -1,6 +1,7 @@
 package io.ak1.jetalarm.data.local
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by akshay on 07,November,2020
@@ -30,14 +31,15 @@ interface TimesZonesTableDao {
     suspend fun count(): Int
 
     @Query("SELECT * FROM timezones_table")
-    suspend fun getAllTimeZones(): List<TimesZonesTable>
+    fun getAllTimeZones(): Flow<List<TimesZonesTable>>
 
     @Query("SELECT * FROM timezones_table WHERE id = :id")
     suspend fun getTimeZone(id: Int): TimesZonesTable
 
     @Query("SELECT * FROM timezones_table WHERE selected = 1")
-    suspend fun getSelectedTimeZones(): List<TimesZonesTable>
+    fun getSelectedTimeZones(): Flow<List<TimesZonesTable>>
 
     @Query("DELETE FROM timezones_table")
     suspend fun deleteTable()
+
 }

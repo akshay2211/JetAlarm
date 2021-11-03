@@ -5,15 +5,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import io.ak1.jetalarm.R
@@ -32,6 +31,7 @@ fun TimeZoneScreen(navController: NavController) {
     val viewModel by inject<ClockViewModel>(ClockViewModel::class.java)
     val selectedTimeZones = viewModel.selectedTimeZoneList().collectAsState(initial = emptyList())
     val allTimeZones = viewModel.timeZoneList().collectAsState(initial = emptyList())
+    val listState = rememberLazyListState()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -44,8 +44,6 @@ fun TimeZoneScreen(navController: NavController) {
                 DefaultAppBar(titleId = R.string.time_zone_title, navController = navController)
             }
         ) {
-            val context = LocalContext.current
-            val coroutineScope = rememberCoroutineScope()
             LazyColumn(content = {
 
                 if (selectedTimeZones.value.isNotEmpty()) {
@@ -72,7 +70,7 @@ fun TimeZoneScreen(navController: NavController) {
                         viewModel.updateTimeZone(item)
                     }
                 }
-            }, modifier = Modifier.padding(16.dp, 0.dp))
+            }, modifier = Modifier.padding(16.dp, 0.dp), state = listState)
         }
     }
 }
