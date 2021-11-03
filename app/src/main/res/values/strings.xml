@@ -18,4 +18,5 @@
     <string name="custom_theme">Custom theme is Selected</string>
     <string name="storage_cleared">Local storage cleared</string>
     <string name="navigate_back">navigate back</string>
+    <string name="time_zone_title">TimeZones</string>
 </resources>

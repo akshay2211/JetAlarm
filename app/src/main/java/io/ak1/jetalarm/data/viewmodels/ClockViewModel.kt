@@ -18,9 +18,19 @@ class ClockViewModel(private val db: TimesZonesTableDao) : ViewModel() {
 
     fun timeZoneList(): Flow<List<TimesZonesTable>> {
         var list: MutableStateFlow<List<TimesZonesTable>> =
-            MutableStateFlow(emptyList()) // changed the type of list to mutableStateFlow
+            MutableStateFlow(emptyList())
         viewModelScope.launch {
             prePopulateDataBase()
+            list.value = db.getAllTimeZones()
+        }
+        return list
+    }
+
+
+    fun selectedTimeZoneList(): Flow<List<TimesZonesTable>> {
+        var list: MutableStateFlow<List<TimesZonesTable>> =
+            MutableStateFlow(emptyList())
+        viewModelScope.launch {
             list.value = db.getSelectedTimeZones()
         }
         return list
@@ -30,8 +40,12 @@ class ClockViewModel(private val db: TimesZonesTableDao) : ViewModel() {
         if (db.count() == 0) {
             val list = getTimeZones()
             db.insert(list)
-
             db.update(db.getTimeZone(10).apply { selected = true })
         }
     }
+
+    fun updateTimeZone(timesZonesTable: TimesZonesTable) = viewModelScope.launch {
+        db.update(timesZonesTable.apply { selected = !selected })
+    }
+
 }
