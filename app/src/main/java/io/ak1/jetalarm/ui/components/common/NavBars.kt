@@ -1,4 +1,4 @@
-package io.ak1.jetalarm.ui.components
+package io.ak1.jetalarm.ui.components.common
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -46,44 +46,46 @@ fun HeadingTitleView(title: String, subHeading: String?) {
 
 @Composable
 fun BottomBar(
-    navController: NavController
+    navController: NavController,
+    isVisible: Boolean
 ) {
-    Row(
-        modifier = Modifier
-            .background(MaterialTheme.colors.background)
-            .padding(4.dp)
-    ) {
-        Spacer(modifier = Modifier.weight(1f, true))
-        Image(
-            painter = painterResource(R.drawable.ic_clock),
-            contentDescription = stringResource(id = R.string.image_desc),
-            colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
+    if (isVisible)
+        Row(
             modifier = Modifier
-                .clickable {
-                    navController.navigate(Destinations.HOME_ROUTE)
-                }
-                .padding(18.dp)
-        )
-        Image(
-            painter = painterResource(R.drawable.ic_bell),
-            contentDescription = stringResource(id = R.string.image_desc),
-            colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
-            modifier = Modifier
-                .clickable {
-                    navController.navigate(Destinations.HOME_ROUTE)
-                }
-                .padding(18.dp)
-        )
-        Image(
-            painter = painterResource(R.drawable.ic_settings),
-            contentDescription = stringResource(id = R.string.image_desc),
-            colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
-            modifier = Modifier
-                .clickable {
-                    navController.navigate(Destinations.SETTINGS_ROUTE)
-                }
-                .padding(18.dp)
-        )
+                .background(MaterialTheme.colors.background)
+                .padding(4.dp)
+        ) {
+            Spacer(modifier = Modifier.weight(1f, true))
+            Image(
+                painter = painterResource(R.drawable.ic_clock),
+                contentDescription = stringResource(id = R.string.image_desc),
+                colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
+                modifier = Modifier
+                    .clickable {
+                        navController.navigate(Destinations.HOME_ROUTE)
+                    }
+                    .padding(18.dp)
+            )
+            Image(
+                painter = painterResource(R.drawable.ic_bell),
+                contentDescription = stringResource(id = R.string.image_desc),
+                colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
+                modifier = Modifier
+                    .clickable {
+                        navController.navigate(Destinations.HOME_ROUTE)
+                    }
+                    .padding(18.dp)
+            )
+            Image(
+                painter = painterResource(R.drawable.ic_settings),
+                contentDescription = stringResource(id = R.string.image_desc),
+                colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
+                modifier = Modifier
+                    .clickable {
+                        navController.navigate(Destinations.SETTINGS_ROUTE)
+                    }
+                    .padding(18.dp)
+            )
 
-    }
+        }
 }

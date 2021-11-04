@@ -17,7 +17,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.navigation.NavController
 import io.ak1.jetalarm.R
 import io.ak1.jetalarm.ui.components.DefaultAppBar
-import io.ak1.jetalarm.ui.components.getClockType
+import io.ak1.jetalarm.ui.components.clock.getClockType
 import io.ak1.jetalarm.ui.theme.isDarkThemeOn
 import io.ak1.jetalarm.utils.clockPreferenceKey
 import io.ak1.jetalarm.utils.dataStore
