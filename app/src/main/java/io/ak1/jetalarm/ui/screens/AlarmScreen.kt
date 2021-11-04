@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 /**
  * Created by akshay on 21/10/21
@@ -14,7 +15,7 @@ import androidx.compose.ui.unit.dp
  */
 
 @Composable
-fun AlarmScreen() {
+fun AlarmScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()

@@ -62,7 +62,9 @@ fun BottomBar(
                 colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
                 modifier = Modifier
                     .clickable {
-                        navController.navigate(Destinations.HOME_ROUTE)
+                        navController.navigate(Destinations.HOME_ROUTE) {
+                            popUpTo(Destinations.HOME_ROUTE) { inclusive = true }
+                        }
                     }
                     .padding(18.dp)
             )
@@ -72,7 +74,9 @@ fun BottomBar(
                 colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
                 modifier = Modifier
                     .clickable {
-                        navController.navigate(Destinations.HOME_ROUTE)
+                        navController.navigate(Destinations.ALARM_ROUTE) {
+                            popUpTo(Destinations.HOME_ROUTE)
+                        }
                     }
                     .padding(18.dp)
             )
