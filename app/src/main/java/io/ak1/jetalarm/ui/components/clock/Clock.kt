@@ -1,4 +1,4 @@
-package io.ak1.jetalarm.ui.components
+package io.ak1.jetalarm.ui.components.clock
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
