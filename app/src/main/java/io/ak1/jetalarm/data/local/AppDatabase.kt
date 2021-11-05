@@ -53,4 +53,10 @@ interface AlarmTableDao {
 
     @Query("SELECT * FROM alarm_table")
     fun getAllAlarms(): Flow<List<AlarmTable>>
+
+    @Query("DELETE FROM alarm_table WHERE alarm_id = :alarm_id")
+    suspend fun deleteOne(alarm_id: String)
+
+    @Query("DELETE FROM alarm_table")
+    suspend fun deleteTable()
 }

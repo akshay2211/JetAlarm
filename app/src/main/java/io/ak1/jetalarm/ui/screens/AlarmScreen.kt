@@ -8,6 +8,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import io.ak1.jetalarm.data.viewmodels.AlarmViewModel
+import org.koin.java.KoinJavaComponent.inject
 
 /**
  * Created by akshay on 21/10/21
@@ -16,6 +18,7 @@ import androidx.navigation.NavController
 
 @Composable
 fun AlarmScreen(navController: NavController) {
+    val viewModel by inject<AlarmViewModel>(AlarmViewModel::class.java)
     Column(
         modifier = Modifier
             .fillMaxSize()
