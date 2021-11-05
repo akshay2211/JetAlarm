@@ -8,9 +8,10 @@ import kotlinx.coroutines.flow.Flow
  * akshay2211@github.io
  */
 
-@Database(entities = [TimesZonesTable::class], version = 1)
+@Database(entities = [TimesZonesTable::class, AlarmTable::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun timeZoneDao(): TimesZonesTableDao
+    abstract fun alarmTableDao(): AlarmTableDao
 }
 
 @Dao
@@ -42,4 +43,20 @@ interface TimesZonesTableDao {
     @Query("DELETE FROM timezones_table")
     suspend fun deleteTable()
 
+}
+
+
+@Dao
+interface AlarmTableDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(alarm: AlarmTable)
+
+    @Query("SELECT * FROM alarm_table")
+    fun getAllAlarms(): Flow<List<AlarmTable>>
+
+    @Query("DELETE FROM alarm_table WHERE alarm_id = :alarm_id")
+    suspend fun deleteOne(alarm_id: String)
+
+    @Query("DELETE FROM alarm_table")
+    suspend fun deleteTable()
 }

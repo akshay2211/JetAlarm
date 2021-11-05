@@ -1,5 +1,6 @@
 package io.ak1.jetalarm.di
 
+import io.ak1.jetalarm.data.viewmodels.AlarmViewModel
 import io.ak1.jetalarm.data.viewmodels.ClockViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -13,8 +14,10 @@ import org.koin.dsl.module
 var databaseModule = module {
     single { getDb(androidApplication()) }
     single { getTimeZoneDao(get()) }
+    single { getAlarmTableDao(get()) }
 
 }
 var viewModelModule = module {
     viewModel { ClockViewModel(get()) }
+    viewModel { AlarmViewModel(get()) }
 }

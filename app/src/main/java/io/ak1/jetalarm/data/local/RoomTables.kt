@@ -10,6 +10,7 @@ import androidx.room.PrimaryKey
  */
 
 const val TIMEZONE_TABLE = "timezones_table"
+const val ALARM_TABLE = "alarm_table"
 
 @Entity(
     tableName = TIMEZONE_TABLE,
@@ -19,6 +20,19 @@ data class TimesZonesTable(
     var name: String = "",
     var time_id: String = "",
     var selected: Boolean = false
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
+}
+
+
+@Entity(
+    tableName = ALARM_TABLE,
+    indices = [Index(value = ["alarm_id"], unique = true)]
+)
+data class AlarmTable(
+    var name: String = "",
+    var alarm_id: String = "",
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

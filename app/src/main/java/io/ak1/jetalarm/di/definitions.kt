@@ -2,6 +2,7 @@ package io.ak1.jetalarm.di
 
 import android.content.Context
 import androidx.room.Room
+import io.ak1.jetalarm.data.local.AlarmTableDao
 import io.ak1.jetalarm.data.local.AppDatabase
 import io.ak1.jetalarm.data.local.TimesZonesTableDao
 
@@ -20,4 +21,8 @@ fun getDb(context: Context): AppDatabase {
 
 fun getTimeZoneDao(appDatabase: AppDatabase): TimesZonesTableDao {
     return appDatabase.timeZoneDao()
+}
+
+fun getAlarmTableDao(appDatabase: AppDatabase): AlarmTableDao {
+    return appDatabase.alarmTableDao()
 }
