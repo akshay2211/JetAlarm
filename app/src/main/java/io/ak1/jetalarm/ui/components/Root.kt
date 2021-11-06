@@ -13,7 +13,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import io.ak1.jetalarm.ui.components.common.BottomBar
-import io.ak1.jetalarm.ui.screens.*
+import io.ak1.jetalarm.ui.screens.Destinations
+import io.ak1.jetalarm.ui.screens.SettingsScreen
+import io.ak1.jetalarm.ui.screens.alarm.AlarmScreen
+import io.ak1.jetalarm.ui.screens.clock.ClockScreen
+import io.ak1.jetalarm.ui.screens.clock.TimeZoneScreen
 import io.ak1.jetalarm.ui.theme.JetAlarmTheme
 import io.ak1.jetalarm.ui.theme.isSystemInDarkThemeCustom
 import io.ak1.jetalarm.ui.theme.statusBarConfig
