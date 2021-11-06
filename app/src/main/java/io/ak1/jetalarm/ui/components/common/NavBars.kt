@@ -23,7 +23,7 @@ import io.ak1.jetalarm.ui.screens.Destinations
 
 
 @Composable
-fun HeadingTitleView(title: String, subHeading: String?) {
+fun HeadingTitleView(title: String, subHeading: String? = null) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

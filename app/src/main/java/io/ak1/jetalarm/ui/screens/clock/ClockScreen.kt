@@ -1,4 +1,4 @@
-package io.ak1.jetalarm.ui.screens
+package io.ak1.jetalarm.ui.screens.clock
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -21,6 +21,7 @@ import io.ak1.jetalarm.data.viewmodels.ClockViewModel
 import io.ak1.jetalarm.ui.components.TimeZoneListRowView
 import io.ak1.jetalarm.ui.components.clock.ClockView
 import io.ak1.jetalarm.ui.components.common.HeadingTitleView
+import io.ak1.jetalarm.ui.screens.Destinations
 import io.ak1.jetalarm.utils.DATE_FORMAT_FULL
 import org.koin.java.KoinJavaComponent.inject
 import java.text.SimpleDateFormat

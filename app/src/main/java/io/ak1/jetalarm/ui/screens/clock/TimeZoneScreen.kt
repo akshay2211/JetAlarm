@@ -1,4 +1,4 @@
-package io.ak1.jetalarm.ui.screens
+package io.ak1.jetalarm.ui.screens.clock
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
