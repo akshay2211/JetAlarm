@@ -16,6 +16,7 @@ import io.ak1.jetalarm.ui.components.common.BottomBar
 import io.ak1.jetalarm.ui.screens.Destinations
 import io.ak1.jetalarm.ui.screens.SettingsScreen
 import io.ak1.jetalarm.ui.screens.alarm.AlarmScreen
+import io.ak1.jetalarm.ui.screens.alarm.CreateAlarmScreen
 import io.ak1.jetalarm.ui.screens.clock.ClockScreen
 import io.ak1.jetalarm.ui.screens.clock.TimeZoneScreen
 import io.ak1.jetalarm.ui.theme.JetAlarmTheme
@@ -57,6 +58,9 @@ fun RootView(window: Window) {
                     }
                     composable(Destinations.ALARM_ROUTE) {
                         AlarmScreen(navController)
+                    }
+                    composable(Destinations.CREATE_ALARM_ROUTE) {
+                        CreateAlarmScreen(navController)
                     }
                     composable(Destinations.TIMEZONE_ROUTE) {
                         TimeZoneScreen(navController)
