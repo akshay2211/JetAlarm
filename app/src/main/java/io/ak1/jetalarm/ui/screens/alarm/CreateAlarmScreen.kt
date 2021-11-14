@@ -46,8 +46,8 @@ fun CreateAlarmScreen(navController: NavController) {
             time.value = "$hour:$minute"
             TimePickerDialog(
                 context,
-                { view, hourOfDay, minute ->
-                    time.value = "$hour:$minute"
+                { view, hourOfDay, min ->
+                    time.value = "$hourOfDay:$min"
                 },
                 hour,
                 minute,
@@ -63,5 +63,10 @@ fun CreateAlarmScreen(navController: NavController) {
 
     }
 }
+// TODO: 14/11/21
+/**
+ * selective weekdays
+ * default alarm ringtone
+ * */
 
 
