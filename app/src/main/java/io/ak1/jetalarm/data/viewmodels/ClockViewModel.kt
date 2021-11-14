@@ -18,7 +18,7 @@ class ClockViewModel(private val db: TimesZonesTableDao) : ViewModel() {
 
     fun selectedTimeZoneList() = db.getSelectedTimeZones()
 
-    private suspend fun prePopulateDataBase() {
+    suspend fun prePopulateDataBase() {
         if (db.count() == 0) {
             val list = getTimeZones()
             db.insert(list)

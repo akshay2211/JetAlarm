@@ -10,6 +10,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -20,6 +21,7 @@ import io.ak1.jetalarm.R
 import io.ak1.jetalarm.data.viewmodels.ClockViewModel
 import io.ak1.jetalarm.ui.components.DefaultAppBar
 import io.ak1.jetalarm.ui.components.TimeZoneListRowSmallView
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
@@ -35,6 +37,11 @@ fun TimeZoneScreen(navController: NavController) {
     val allTimeZones = viewModel.timeZoneList().collectAsState(initial = emptyList())
     val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
+    LaunchedEffect(key1 = null, block = {
+        coroutineScope.launch(Dispatchers.IO) {
+            viewModel.prePopulateDataBase()
+        }
+    })
 
     Column(
         modifier = Modifier
