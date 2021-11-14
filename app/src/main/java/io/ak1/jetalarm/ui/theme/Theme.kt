@@ -20,23 +20,40 @@ import kotlinx.coroutines.runBlocking
 
 
 private val DarkColorPalette = darkColors(
-    primary = White200,
-    primaryVariant = Grey200,
-    secondaryVariant = White200,
-    secondary = Red200,
-    onPrimary = Black200,
-    onSecondary = Black200,
-    background = Black200
+    primary = White,
+    primaryVariant = Grey,
+    secondary = Red,
+    secondaryVariant = White,
+    background = Black,
+    surface = Black,
+    onPrimary = Black,
+    onSecondary = Black,
+    onBackground = White,
+    onSurface = White,
+    /*    primary: Color = Color(0xFFBB86FC),
+    primaryVariant: Color = Color(0xFF3700B3),
+    secondary: Color = Color(0xFF03DAC6),
+    secondaryVariant: Color = secondary,
+    background: Color = Color(0xFF121212),
+    surface: Color = Color(0xFF121212),
+    error: Color = Color(0xFFCF6679),
+    onPrimary: Color = Color.Black,
+    onSecondary: Color = Color.Black,
+    onBackground: Color = Color.White,
+    onSurface: Color = Color.White,
+    onError: Color = Color.Black*/
+
 )
 
 private val LightColorPalette = lightColors(
-    primary = Black200,
-    primaryVariant = Grey200,
-    secondaryVariant = Black200,
-    secondary = Red200,
-    onPrimary = White200,
-    onSecondary = White200,
-    background = White200
+    primary = Black,
+    primaryVariant = Grey,
+    secondaryVariant = Black,
+    secondary = Red,
+    onPrimary = White,
+    onSecondary = White,
+    background = White,
+
 
     /* Other default colors to override
     background = Color.White,
