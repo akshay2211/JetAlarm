@@ -23,6 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name=".ui.screens.alarm.AlarmReceiver"
+            android:directBootAware="true"
+            android:exported="false"
+            android:process=".AlarmReceiverAkshay"></receiver>
     </application>
 
 </manifest>
