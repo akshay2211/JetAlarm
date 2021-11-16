@@ -31,8 +31,9 @@ data class TimesZonesTable(
     indices = [Index(value = ["alarm_id"], unique = true)]
 )
 data class AlarmTable(
-    var name: String = "",
-    var alarm_id: String = "",
+    var time: Long = 0L,
+    var desc: String = "",
+    var alarm_id: Int = Int.MIN_VALUE,
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
