@@ -28,6 +28,7 @@ Phase 2
 Phase 3
 * Advanced Alarm Features
 * StopWatch
+* More Clock UI
 
 
 License
