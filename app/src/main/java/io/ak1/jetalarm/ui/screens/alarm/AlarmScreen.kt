@@ -2,7 +2,6 @@ package io.ak1.jetalarm.ui.screens.alarm
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import io.ak1.jetalarm.R
 import io.ak1.jetalarm.data.viewmodels.AlarmViewModel
-import io.ak1.jetalarm.ui.components.common.HeadingTitleView
+import io.ak1.jetalarm.ui.components.common.Container
 import io.ak1.jetalarm.ui.screens.Destinations
 import org.koin.java.KoinJavaComponent.inject
 
@@ -35,13 +34,7 @@ import org.koin.java.KoinJavaComponent.inject
 fun AlarmScreen(navController: NavController) {
     val viewModel by inject<AlarmViewModel>(AlarmViewModel::class.java)
     val list = viewModel.list.collectAsState(initial = emptyList())
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp, 0.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        HeadingTitleView("Alarms")
+    Container(heading = "Alarms") {
         Box(modifier = Modifier.fillMaxSize()) {
             LazyColumn(content = {
                 items(list.value) { item ->
@@ -68,7 +61,5 @@ fun AlarmScreen(navController: NavController) {
                 )
             }
         }
-
-
     }
 }
