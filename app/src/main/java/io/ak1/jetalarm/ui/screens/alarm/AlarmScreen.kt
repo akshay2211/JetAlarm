@@ -44,12 +44,10 @@ fun AlarmScreen(navController: NavController) {
         HeadingTitleView("Alarms")
         Box(modifier = Modifier.fillMaxSize()) {
             LazyColumn(content = {
-                for (i in 0..10) {
-                    items(list.value) { item ->
-                        Text(text = "$i Alarm", modifier = Modifier.padding(20.dp))
-                        /*TextField(value = "$i Alarm", onValueChange = {
-                        })*/
-                    }
+                items(list.value) { item ->
+                    Text(text = "${item.desc} Alarm", modifier = Modifier.padding(20.dp))
+                    /*TextField(value = "$i Alarm", onValueChange = {
+                    })*/
                 }
             })
             FloatingActionButton(

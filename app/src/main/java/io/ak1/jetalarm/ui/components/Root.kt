@@ -1,14 +1,13 @@
 package io.ak1.jetalarm.ui.components
 
-import android.view.Window
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
@@ -30,24 +29,21 @@ import io.ak1.jetalarm.ui.theme.JetAlarmTheme
  */
 
 @Composable
-fun RootView(window: Window) {
-    var bottomBarVisibility = rememberSaveable { mutableStateOf(false) }
+fun RootView() {
     JetAlarmTheme(true) {
         val systemUiController = rememberSystemUiController()
         val darkIcons = MaterialTheme.colors.isLight
         SideEffect { systemUiController.setSystemBarsColor(Color.Transparent, darkIcons) }
 
-        Surface(color = MaterialTheme.colors.background) {
-            val navController = rememberNavController().apply {
-                this.addOnDestinationChangedListener { _, destination, _ ->
-                    bottomBarVisibility.value = destination.route == Destinations.HOME_ROUTE ||
-                            destination.route == Destinations.ALARM_ROUTE
-                }
-            }
+        Surface {
+            val navController = rememberNavController()
             Scaffold(
-                Modifier.fillMaxSize(),
+                Modifier
+                    .fillMaxSize()
+                    .statusBarsPadding()
+                    .navigationBarsPadding(),
                 bottomBar = {
-                    BottomBar(navController = navController, bottomBarVisibility.value)
+                    BottomBar(navController = navController, true)
                 }
             ) {
                 NavHost(
@@ -67,7 +63,7 @@ fun RootView(window: Window) {
                         TimeZoneScreen(navController)
                     }
                     composable(Destinations.SETTINGS_ROUTE) {
-                        SettingsScreen(navController)
+                        SettingsScreen()
                     }
 
                 }

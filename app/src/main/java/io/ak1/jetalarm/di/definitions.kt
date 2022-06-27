@@ -2,6 +2,7 @@ package io.ak1.jetalarm.di
 
 import android.content.Context
 import androidx.room.Room
+import io.ak1.jetalarm.R
 import io.ak1.jetalarm.data.local.AlarmTableDao
 import io.ak1.jetalarm.data.local.AppDatabase
 import io.ak1.jetalarm.data.local.TimesZonesTableDao
@@ -14,7 +15,7 @@ fun getDb(context: Context): AppDatabase {
     return synchronized(context) {
         Room.databaseBuilder(
             context,
-            AppDatabase::class.java, "database-jetalarm"
+            AppDatabase::class.java, "database-${context.getString(R.string.app_name).lowercase()}"
         ).build()
     }
 }

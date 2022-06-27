@@ -20,7 +20,7 @@ import io.ak1.jetalarm.R
 import io.ak1.jetalarm.data.viewmodels.ClockViewModel
 import io.ak1.jetalarm.ui.components.TimeZoneListRowView
 import io.ak1.jetalarm.ui.components.clock.ClockView
-import io.ak1.jetalarm.ui.components.common.HeadingTitleView
+import io.ak1.jetalarm.ui.components.common.Container
 import io.ak1.jetalarm.ui.screens.Destinations
 import io.ak1.jetalarm.utils.DATE_FORMAT_FULL
 import org.koin.java.KoinJavaComponent.inject
@@ -36,18 +36,12 @@ import java.util.*
 fun ClockScreen(navController: NavController) {
     val viewModel by inject<ClockViewModel>(ClockViewModel::class.java)
     val list = viewModel.selectedTimeZoneList().collectAsState(initial = emptyList())
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp, 0.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+
+    Container("World Clock") {
         val timeZone = TimeZone.getDefault()
         val subHeading = "${timeZone.id} ${
             SimpleDateFormat(DATE_FORMAT_FULL).apply { setTimeZone(timeZone) }.format(Date())
         }"
-        HeadingTitleView("World Clock", subHeading)
-
         Box(Modifier.fillMaxSize()) {
             LazyColumn(
                 content = {
