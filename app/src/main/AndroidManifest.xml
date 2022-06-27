@@ -12,11 +12,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.JetAlarm">
+        android:theme="@style/Theme.JetAlarm.Starting">
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.JetAlarm.NoActionBar">
+            android:theme="@style/Theme.JetAlarm.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

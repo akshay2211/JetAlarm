@@ -1,14 +1,22 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Theme.JetAlarm" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.JetAlarm" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:colorPrimary">@color/black</item>
     </style>
 
-    <style name="Theme.JetAlarm.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="Theme.JetAlarm.Starting" parent="Theme.SplashScreen">
+        <!-- Set the splash screen background, animated icon, and animation duration. -->
+        <!-- <item name="windowSplashScreenBackground">@color/black</item>-->
+
+        <!-- Use windowSplashScreenAnimatedIcon to add either a drawable or an
+             animated drawable. One of these is required. -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_bell</item>
+        <!-- Required for animated icons -->
+        <item name="windowSplashScreenAnimationDuration">700</item>
+
+        <!-- Set the theme of the Activity that directly follows your splash screen. -->
+        <!-- Required -->
+        <item name="postSplashScreenTheme">@style/Theme.JetAlarm</item>
     </style>
-
-    <style name="Theme.JetAlarm.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.JetAlarm.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
