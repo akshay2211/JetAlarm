@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ac3b9abb8df3599f0fd13f4cf0dc7379",
+    "identityHash": "e7037487964ba9e66cef8c914d0c64f8",
     "entities": [
       {
         "tableName": "timezones_table",
@@ -50,12 +50,59 @@
           }
         ],
         "foreignKeys": []
+      },
+      {
+        "tableName": "alarm_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`time` INTEGER NOT NULL, `desc` TEXT NOT NULL, `alarm_id` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "time",
+            "columnName": "time",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "desc",
+            "columnName": "desc",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "alarm_id",
+            "columnName": "alarm_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_alarm_table_alarm_id",
+            "unique": true,
+            "columnNames": [
+              "alarm_id"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_alarm_table_alarm_id` ON `${TABLE_NAME}` (`alarm_id`)"
+          }
+        ],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ac3b9abb8df3599f0fd13f4cf0dc7379')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e7037487964ba9e66cef8c914d0c64f8')"
     ]
   }
 }

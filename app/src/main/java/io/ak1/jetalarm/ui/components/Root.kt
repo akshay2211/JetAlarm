@@ -6,12 +6,15 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.ak1.jetalarm.ui.components.common.BottomBar
 import io.ak1.jetalarm.ui.screens.Destinations
 import io.ak1.jetalarm.ui.screens.SettingsScreen
@@ -20,8 +23,6 @@ import io.ak1.jetalarm.ui.screens.alarm.CreateAlarmScreen
 import io.ak1.jetalarm.ui.screens.clock.ClockScreen
 import io.ak1.jetalarm.ui.screens.clock.TimeZoneScreen
 import io.ak1.jetalarm.ui.theme.JetAlarmTheme
-import io.ak1.jetalarm.ui.theme.isSystemInDarkThemeCustom
-import io.ak1.jetalarm.ui.theme.statusBarConfig
 
 /**
  * Created by akshay on 06/10/21
@@ -30,12 +31,12 @@ import io.ak1.jetalarm.ui.theme.statusBarConfig
 
 @Composable
 fun RootView(window: Window) {
-    val isDark = isSystemInDarkThemeCustom()
-    var bottomBarVisibility = rememberSaveable {
-        mutableStateOf(false)
-    }
-    JetAlarmTheme(isDark) {
-        window.statusBarConfig(isDark)
+    var bottomBarVisibility = rememberSaveable { mutableStateOf(false) }
+    JetAlarmTheme(true) {
+        val systemUiController = rememberSystemUiController()
+        val darkIcons = MaterialTheme.colors.isLight
+        SideEffect { systemUiController.setSystemBarsColor(Color.Transparent, darkIcons) }
+
         Surface(color = MaterialTheme.colors.background) {
             val navController = rememberNavController().apply {
                 this.addOnDestinationChangedListener { _, destination, _ ->
