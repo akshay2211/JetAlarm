@@ -16,9 +16,9 @@ android {
         multiDexEnabled true
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = ["room.schemaLocation": "$projectDir/schemas".toString(),
-                             "room.incremental":"true",
-                             "room.expandProjection":"true"]
+                arguments = ["room.schemaLocation"  : "$projectDir/schemas".toString(),
+                             "room.incremental"     : "true",
+                             "room.expandProjection": "true"]
             }
         }
 
@@ -82,9 +82,11 @@ dependencies {
     //SplashScreen
     implementation 'androidx.core:core-splashscreen:1.0.0-rc01'
 
-    //System UI Controller
-    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.24.10-beta'
-    implementation 'com.google.accompanist:accompanist-swiperefresh:0.24.10-beta'
+    //Accompanist
+    def accompanist_version = '0.24.12-rc'
+    implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-swiperefresh:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-navigation-material:$accompanist_version"
 
     def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"
