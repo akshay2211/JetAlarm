@@ -15,11 +15,13 @@
  */
 package io.ak1.jetalarm.ui.screens.home
 
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import io.ak1.jetalarm.ui.components.common.BottomBar
 import io.ak1.jetalarm.ui.screens.Destinations
 import io.ak1.jetalarm.ui.screens.home.alarm.AlarmScreen
 import io.ak1.jetalarm.ui.screens.home.clock.ClockScreen
@@ -32,11 +34,13 @@ import io.ak1.jetalarm.ui.screens.home.clock.ClockScreen
 @Composable
 fun HomeScreen(parentNavController: NavHostController) {
     val navController = rememberNavController()
-    NavHost(
-        navController = navController,
-        startDestination = Destinations.CLOCK_ROUTE
-    ) {
-        composable(Destinations.CLOCK_ROUTE) { ClockScreen(navController) }
-        composable(Destinations.ALARM_ROUTE) { AlarmScreen(navController) }
+    Scaffold(bottomBar = { BottomBar(navController) }) {
+        NavHost(
+            navController = navController,
+            startDestination = Destinations.CLOCK_ROUTE
+        ) {
+            composable(Destinations.CLOCK_ROUTE) { ClockScreen(navController) }
+            composable(Destinations.ALARM_ROUTE) { AlarmScreen(navController) }
+        }
     }
 }

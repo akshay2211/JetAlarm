@@ -46,10 +46,8 @@ fun HeadingTitleView(title: String, subHeading: String? = null) {
 
 @Composable
 fun BottomBar(
-    navController: NavController,
-    isVisible: Boolean
+    navController: NavController
 ) {
-    if (isVisible)
         Row(
             modifier = Modifier
                 .background(MaterialTheme.colors.background)
