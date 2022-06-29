@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <receiver
-            android:name=".ui.screens.alarm.AlarmReceiver"
+            android:name=".ui.screens.home.alarm.AlarmReceiver"
             android:directBootAware="true"
             android:exported="false"
             android:process=".AlarmReceiverAkshay"></receiver>
