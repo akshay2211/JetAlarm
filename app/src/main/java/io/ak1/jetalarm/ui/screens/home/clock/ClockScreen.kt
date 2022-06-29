@@ -1,4 +1,4 @@
-package io.ak1.jetalarm.ui.screens.clock
+package io.ak1.jetalarm.ui.screens.home.clock
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

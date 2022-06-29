@@ -1,4 +1,4 @@
-package io.ak1.jetalarm.ui.screens.alarm
+package io.ak1.jetalarm.ui.screens.home.alarm
 
 import android.app.AlarmManager
 import android.app.PendingIntent
