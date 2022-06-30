@@ -34,13 +34,13 @@ import io.ak1.jetalarm.ui.screens.home.clock.ClockScreen
 @Composable
 fun HomeScreen(parentNavController: NavHostController) {
     val navController = rememberNavController()
-    Scaffold(bottomBar = { BottomBar(navController) }) {
+    Scaffold(bottomBar = { BottomBar(parentNavController, navController) }) {
         NavHost(
             navController = navController,
             startDestination = Destinations.CLOCK_ROUTE
         ) {
-            composable(Destinations.CLOCK_ROUTE) { ClockScreen(navController) }
-            composable(Destinations.ALARM_ROUTE) { AlarmScreen(navController) }
+            composable(Destinations.CLOCK_ROUTE) { ClockScreen(parentNavController) }
+            composable(Destinations.ALARM_ROUTE) { AlarmScreen(parentNavController) }
         }
     }
 }
