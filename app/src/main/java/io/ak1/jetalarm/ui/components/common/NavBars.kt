@@ -3,9 +3,10 @@ package io.ak1.jetalarm.ui.components.common
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -13,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import io.ak1.jetalarm.R
 import io.ak1.jetalarm.ui.screens.Destinations
 
@@ -23,33 +25,10 @@ import io.ak1.jetalarm.ui.screens.Destinations
 
 
 @Composable
-fun HeadingTitleView(title: String, subHeading: String? = null) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(0.dp, 16.dp, 0.dp, 10.dp)
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.h3,
-        )
-        subHeading?.let {
-            Text(
-                text = it,
-                style = MaterialTheme.typography.body2,
-            )
-        }
-
-    }
-}
-
-
-@Composable
 fun BottomBar(
-    navController: NavController,
-    isVisible: Boolean
+    parentNavController: NavController,
+    navController: NavHostController
 ) {
-    if (isVisible)
         Row(
             modifier = Modifier
                 .background(MaterialTheme.colors.background)
@@ -62,8 +41,8 @@ fun BottomBar(
                 colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
                 modifier = Modifier
                     .clickable {
-                        navController.navigate(Destinations.HOME_ROUTE) {
-                            popUpTo(Destinations.HOME_ROUTE) { inclusive = true }
+                        navController.navigate(Destinations.CLOCK_ROUTE) {
+                            popUpTo(Destinations.CLOCK_ROUTE) { inclusive = true }
                         }
                     }
                     .padding(18.dp)
@@ -75,7 +54,7 @@ fun BottomBar(
                 modifier = Modifier
                     .clickable {
                         navController.navigate(Destinations.ALARM_ROUTE) {
-                            popUpTo(Destinations.HOME_ROUTE)
+                            popUpTo(Destinations.CLOCK_ROUTE)
                         }
                     }
                     .padding(18.dp)
@@ -86,7 +65,7 @@ fun BottomBar(
                 colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
                 modifier = Modifier
                     .clickable {
-                        navController.navigate(Destinations.SETTINGS_ROUTE)
+                        parentNavController.navigate(Destinations.SETTINGS_ROUTE)
                     }
                     .padding(18.dp)
             )
