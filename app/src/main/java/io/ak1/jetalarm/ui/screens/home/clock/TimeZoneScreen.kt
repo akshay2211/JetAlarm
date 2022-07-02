@@ -1,5 +1,7 @@
 package io.ak1.jetalarm.ui.screens.home.clock
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -9,17 +11,19 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import io.ak1.jetalarm.R
 import io.ak1.jetalarm.data.viewmodels.ClockViewModel
-import io.ak1.jetalarm.ui.components.DefaultAppBar
 import io.ak1.jetalarm.ui.components.TimeZoneListRowSmallView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,7 +35,7 @@ import org.koin.java.KoinJavaComponent.inject
  */
 
 @Composable
-fun TimeZoneScreen(navController: NavController) {
+fun TimeZoneScreen(navigateUp: () -> Unit) {
     val viewModel by inject<ClockViewModel>(ClockViewModel::class.java)
     val selectedTimeZones = viewModel.selectedTimeZoneList().collectAsState(initial = emptyList())
     val allTimeZones = viewModel.timeZoneList().collectAsState(initial = emptyList())
@@ -52,13 +56,28 @@ fun TimeZoneScreen(navController: NavController) {
         Scaffold(
             Modifier.fillMaxSize(),
             topBar = {
-                DefaultAppBar(titleId = R.string.time_zone_title, navController = navController)
+                TopAppBar {
+                    Image(
+                        painter = painterResource(R.drawable.ic_arrow_left),
+                        contentDescription = stringResource(id = R.string.navigate_back),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
+                        modifier = Modifier
+                            .clickable {
+                                navigateUp.invoke()
+                            }
+                            .padding(12.dp)
+                    )
+                    Text(
+                        text = stringResource(id = R.string.time_zone_title),
+                        style = MaterialTheme.typography.h6, modifier = Modifier.padding(0.dp, 9.dp)
+                    )
+
+                }
             }
         ) {
-
             LazyColumn(content = {
 
-                if (selectedTimeZones.value.isNotEmpty()) {
+                /*if (selectedTimeZones.value.isNotEmpty()) {
                     item {
                         Text(
                             text = "Selected TimeZones", style = MaterialTheme.typography.subtitle2,
@@ -70,7 +89,7 @@ fun TimeZoneScreen(navController: NavController) {
                             viewModel.updateTimeZone(item) {}
                         }
                     }
-                }
+                }*/
                 item {
                     Text(
                         text = "All TimeZones", style = MaterialTheme.typography.subtitle2,
