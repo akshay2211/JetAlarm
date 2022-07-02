@@ -1,17 +1,18 @@
 package io.ak1.jetalarm.ui.screens
 
 import android.util.Log
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Switch
-import androidx.compose.material.SwitchDefaults
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -19,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.datastore.preferences.core.edit
 import io.ak1.jetalarm.R
 import io.ak1.jetalarm.ui.components.clock.getClockType
-import io.ak1.jetalarm.ui.components.common.Container
 import io.ak1.jetalarm.ui.theme.isDarkThemeOn
 import io.ak1.jetalarm.utils.clockPreferenceKey
 import io.ak1.jetalarm.utils.dataStore
@@ -27,8 +27,27 @@ import io.ak1.jetalarm.utils.themePreferenceKey
 import kotlinx.coroutines.launch
 
 @Composable
-fun SettingsScreen() {
-    Container("Settings") {
+fun SettingsScreen(navigateUp: () -> Unit) {
+
+    Scaffold(topBar = {
+        TopAppBar {
+            Image(
+                painter = painterResource(R.drawable.ic_arrow_left),
+                contentDescription = stringResource(id = R.string.navigate_back),
+                colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
+                modifier = Modifier
+                    .clickable {
+                        navigateUp.invoke()
+                    }
+                    .padding(12.dp)
+            )
+            Text(
+                text = stringResource(id = R.string.settings_title),
+                style = MaterialTheme.typography.h6, modifier = Modifier.padding(0.dp, 9.dp)
+            )
+
+        }
+    }) {
 
         val context = LocalContext.current
         val theme = context.isDarkThemeOn().collectAsState(initial = 0)
@@ -39,7 +58,7 @@ fun SettingsScreen() {
             modifier = Modifier
                 .width(600.dp)
                 .fillMaxWidth()
-                .align(Alignment.CenterHorizontally)
+            //.align(Alignment.CenterHorizontally)
         ) {
             Row(
                 modifier = Modifier

@@ -21,7 +21,9 @@ import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.ak1.jetalarm.ui.screens.Destinations
 import io.ak1.jetalarm.ui.screens.SettingsScreen
-import io.ak1.jetalarm.ui.screens.clock.TimeZoneScreen
+import io.ak1.jetalarm.ui.screens.home.HomeScreen
+import io.ak1.jetalarm.ui.screens.home.alarm.CreateAlarmScreen
+import io.ak1.jetalarm.ui.screens.home.clock.TimeZoneScreen
 import io.ak1.jetalarm.ui.theme.JetAlarmTheme
 
 /**
@@ -45,27 +47,28 @@ fun NavigationContainer() {
     val navController = rememberNavController(bottomSheetNavigator)
     ModalBottomSheetLayout(bottomSheetNavigator) {
         NavHost(
-            modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding()
-                .navigationBarsPadding(),
+            modifier = containerModifier,
             navController = navController,
             startDestination = Destinations.HOME_ROUTE
         ) {
-            composable(Destinations.HOME_ROUTE) {
-                // TODO: add all screens to home
-                //HomeScreen()
-            }
-            //composable(Destinations.ALARM_ROUTE) { AlarmScreen(navController) }
-            //composable(Destinations.CREATE_ALARM_ROUTE) { CreateAlarmScreen(navController) }
+            composable(Destinations.HOME_ROUTE) { HomeScreen(navController) }
             bottomSheet(Destinations.TIMEZONE_ROUTE) {
-                TimeZoneScreen(navController)
+                TimeZoneScreen {
+                    navController.navigateUp()
+                }
             }
             composable(Destinations.SETTINGS_ROUTE) {
-                SettingsScreen()
+                SettingsScreen {
+                    navController.navigateUp()
+                }
             }
-
+            bottomSheet(Destinations.CREATE_ALARM_ROUTE) { CreateAlarmScreen(navController) }
         }
     }
 }
+
+private val containerModifier = Modifier
+    .fillMaxSize()
+    .statusBarsPadding()
+    .navigationBarsPadding()
 
