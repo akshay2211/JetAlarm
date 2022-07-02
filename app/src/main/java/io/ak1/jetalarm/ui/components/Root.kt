@@ -52,8 +52,16 @@ fun NavigationContainer() {
             startDestination = Destinations.HOME_ROUTE
         ) {
             composable(Destinations.HOME_ROUTE) { HomeScreen(navController) }
-            bottomSheet(Destinations.TIMEZONE_ROUTE) { TimeZoneScreen(navController) }
-            composable(Destinations.SETTINGS_ROUTE) { SettingsScreen() }
+            bottomSheet(Destinations.TIMEZONE_ROUTE) {
+                TimeZoneScreen {
+                    navController.navigateUp()
+                }
+            }
+            composable(Destinations.SETTINGS_ROUTE) {
+                SettingsScreen {
+                    navController.navigateUp()
+                }
+            }
             bottomSheet(Destinations.CREATE_ALARM_ROUTE) { CreateAlarmScreen(navController) }
         }
     }
