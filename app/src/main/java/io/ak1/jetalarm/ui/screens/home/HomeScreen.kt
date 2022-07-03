@@ -25,6 +25,8 @@ import io.ak1.jetalarm.ui.components.common.BottomBar
 import io.ak1.jetalarm.ui.screens.Destinations
 import io.ak1.jetalarm.ui.screens.home.alarm.AlarmScreen
 import io.ak1.jetalarm.ui.screens.home.clock.ClockScreen
+import io.ak1.jetalarm.ui.screens.home.stopwatch.StopWatchScreen
+import io.ak1.jetalarm.ui.screens.home.timer.TimerScreen
 
 /**
  * Created by akshay on 29/06/22
@@ -41,6 +43,8 @@ fun HomeScreen(parentNavController: NavHostController) {
         ) {
             composable(Destinations.CLOCK_ROUTE) { ClockScreen(parentNavController) }
             composable(Destinations.ALARM_ROUTE) { AlarmScreen(parentNavController) }
+            composable(Destinations.TIMER_ROUTE) { TimerScreen { navController.navigateUp() } }
+            composable(Destinations.STOP_WATCH_ROUTE) { StopWatchScreen { navController.navigateUp() } }
         }
     }
 }
