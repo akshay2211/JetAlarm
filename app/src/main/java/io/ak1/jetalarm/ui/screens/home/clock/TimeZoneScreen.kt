@@ -43,16 +43,17 @@ fun TimeZoneScreen(navigateUp: () -> Unit) {
 
     })
     var showEffect by remember {
-        mutableStateOf(true)
+        mutableStateOf(false)
     }
     LaunchedEffect(listState.firstVisibleItemIndex == 0) {
-        showEffect = listState.firstVisibleItemIndex == 0
+        showEffect = listState.firstVisibleItemIndex != 0
     }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(10.dp),
+            .padding(10.dp)
+            .statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Scaffold(
