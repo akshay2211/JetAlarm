@@ -2,9 +2,7 @@ package io.ak1.jetalarm.ui.screens.home.clock
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -12,10 +10,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -45,28 +40,40 @@ fun TimeZoneScreen(navigateUp: () -> Unit) {
         coroutineScope.launch(Dispatchers.IO) {
             viewModel.prePopulateDataBase()
         }
+
     })
+    var showEffect by remember {
+        mutableStateOf(false)
+    }
+    LaunchedEffect(listState.firstVisibleItemIndex == 0) {
+        showEffect = listState.firstVisibleItemIndex != 0
+    }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(10.dp),
+            .padding(10.dp)
+            .statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Scaffold(
             Modifier.fillMaxSize(),
             topBar = {
-                TopAppBar {
-                    Image(
-                        painter = painterResource(R.drawable.ic_arrow_left),
-                        contentDescription = stringResource(id = R.string.navigate_back),
-                        colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
-                        modifier = Modifier
-                            .clickable {
-                                navigateUp.invoke()
-                            }
-                            .padding(12.dp)
-                    )
+                TopAppBar(elevation = if (showEffect) 4.dp else 0.dp) {
+                    if (showEffect) {
+                        Image(
+                            painter = painterResource(R.drawable.ic_arrow_left),
+                            contentDescription = stringResource(id = R.string.navigate_back),
+                            colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
+                            modifier = Modifier
+                                .clickable {
+                                    navigateUp.invoke()
+                                }
+                                .padding(12.dp)
+                        )
+                    } else {
+                        Spacer(modifier = Modifier.width(48.dp))
+                    }
                     Text(
                         text = stringResource(id = R.string.time_zone_title),
                         style = MaterialTheme.typography.h6, modifier = Modifier.padding(0.dp, 9.dp)
