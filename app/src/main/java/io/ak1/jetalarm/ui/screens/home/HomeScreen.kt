@@ -36,7 +36,11 @@ import io.ak1.jetalarm.ui.screens.home.timer.TimerScreen
 @Composable
 fun HomeScreen(parentNavController: NavHostController) {
     val navController = rememberNavController()
-    Scaffold(bottomBar = { BottomBar(parentNavController, navController) }) {
+    Scaffold(
+        drawerContent = {
+            SideDrawer()
+        },
+        bottomBar = { BottomBar(parentNavController, navController) }) {
         NavHost(
             navController = navController,
             startDestination = Destinations.CLOCK_ROUTE
@@ -47,4 +51,9 @@ fun HomeScreen(parentNavController: NavHostController) {
             composable(Destinations.STOP_WATCH_ROUTE) { StopWatchScreen { navController.navigateUp() } }
         }
     }
+}
+
+@Composable
+fun SideDrawer() {
+
 }
