@@ -41,6 +41,7 @@ fun RootView(content: @Composable() () -> Unit) {
     }
 }
 
+@OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
 fun NavigationContainer() {
     val bottomSheetNavigator = rememberBottomSheetNavigator()
@@ -53,7 +54,7 @@ fun NavigationContainer() {
         ) {
             composable(Destinations.HOME_ROUTE) { HomeScreen(navController) }
             bottomSheet(Destinations.TIMEZONE_ROUTE) {
-                TimeZoneScreen {
+                TimeZoneScreen(bottomSheetNavigator) {
                     navController.navigateUp()
                 }
             }
