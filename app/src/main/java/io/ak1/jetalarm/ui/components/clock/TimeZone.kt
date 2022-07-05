@@ -1,25 +1,18 @@
 package io.ak1.jetalarm.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import io.ak1.jetalarm.R
 import io.ak1.jetalarm.data.local.TimesZonesTable
+import io.ak1.jetalarm.ui.components.common.IconButton
 import io.ak1.jetalarm.utils.DATE_FORMAT_AA
 import io.ak1.jetalarm.utils.DATE_FORMAT_DAY_DATE
 import io.ak1.jetalarm.utils.DATE_FORMAT_TIME
@@ -85,7 +78,8 @@ fun TimeZoneListRowSmallView(timeZoneItem: TimesZonesTable, onClick: () -> Unit)
     val timeZone = TimeZone.getTimeZone(timeZoneItem.time_id)
     Row(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         val date = Date()
         val ampm = SimpleDateFormat(DATE_FORMAT_AA).apply { setTimeZone(timeZone) }.format(date)
@@ -108,19 +102,9 @@ fun TimeZoneListRowSmallView(timeZoneItem: TimesZonesTable, onClick: () -> Unit)
                 modifier = Modifier.padding(3.dp, 12.dp, 0.dp, 0.dp)
             )
         }
-        Button(
-            modifier = Modifier.padding(0.dp),
-            contentPadding = PaddingValues(0.dp),
-            shape = CircleShape,
-            onClick = onClick,
-            elevation = ButtonDefaults.elevation(defaultElevation = 0.dp, pressedElevation = 0.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = android.R.color.transparent))
-        ) {
-            Image(
-                painter = painterResource(id = if (timeZoneItem.selected) R.drawable.ic_check_circle else R.drawable.ic_circle),
-                contentDescription = stringResource(id = R.string.image_desc),
-                colorFilter = ColorFilter.tint(MaterialTheme.colors.secondary),
-            )
-        }
+        IconButton(
+            if (timeZoneItem.selected) R.drawable.ic_check_circle else R.drawable.ic_circle,
+            tint = MaterialTheme.colors.secondary, onClick = onClick
+        )
     }
 }
