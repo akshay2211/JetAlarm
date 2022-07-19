@@ -2,9 +2,13 @@
 
 package io.ak1.jetalarm.ui.screens.home.clock
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -19,7 +23,7 @@ import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import io.ak1.jetalarm.R
 import io.ak1.jetalarm.data.viewmodels.ClockViewModel
-import io.ak1.jetalarm.ui.components.TimeZoneListRowSmallView
+import io.ak1.jetalarm.ui.components.clock.TimeZoneListRowSmallView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
@@ -40,6 +44,9 @@ fun TimeZoneScreen(bottomSheetNavigator: BottomSheetNavigator, navigateUp: () ->
         coroutineScope.launch(Dispatchers.IO) {
             viewModel.prePopulateDataBase()
         }
+        viewModel.timeZoneList().collect {
+            Log.e("collect", it.filter { it.selected }.joinToString(", "))
+        }
     })
     var isExpanded by remember { mutableStateOf(false) }
     LaunchedEffect(bottomSheetNavigator.navigatorSheetState.targetValue) {
@@ -50,11 +57,11 @@ fun TimeZoneScreen(bottomSheetNavigator: BottomSheetNavigator, navigateUp: () ->
     Scaffold(
         Modifier
             .fillMaxSize()
-            .padding(12.dp, 0.dp)
             .statusBarsPadding(),
         backgroundColor = MaterialTheme.colors.surface,
         topBar = {
             TopAppBar(elevation = if (isExpanded) 4.dp else 0.dp) {
+                Spacer(modifier = Modifier.width(10.dp))
                 if (isExpanded) {
                     Image(
                         painter = painterResource(R.drawable.ic_arrow_left),
@@ -69,35 +76,18 @@ fun TimeZoneScreen(bottomSheetNavigator: BottomSheetNavigator, navigateUp: () ->
                 }
                 Text(
                     text = stringResource(id = R.string.time_zone_title),
-                    style = MaterialTheme.typography.h6, modifier = Modifier.padding(0.dp, 9.dp)
+                    style = MaterialTheme.typography.h6
                 )
 
             }
         }
     ) {
-        LazyColumn(content = {
+        LazyColumn(state = listState) {
             items(allTimeZones.value) { item ->
                 TimeZoneListRowSmallView(item) {
-                    viewModel.updateTimeZone(item) {
-                        /*coroutineScope.launch {
-                            if (it) {
-                                listState.scrollToItem(
-
-                                    listState.firstVisibleItemIndex + 1,
-                                    listState.firstVisibleItemScrollOffset
-                                )
-                            } else {
-                                if (listState.firstVisibleItemIndex > 0) {
-                                    listState.scrollToItem(
-                                        listState.firstVisibleItemIndex - 1,
-                                        listState.firstVisibleItemScrollOffset
-                                    )
-                                }
-                            }
-                        }*/
-                    }
+                    viewModel.updateTimeZone(item)
                 }
             }
-        }, modifier = Modifier.padding(16.dp, 0.dp), state = listState)
+        }
     }
 }
