@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import io.ak1.jetalarm.R
 import io.ak1.jetalarm.data.viewmodels.ClockViewModel
-import io.ak1.jetalarm.ui.components.TimeZoneListRowView
 import io.ak1.jetalarm.ui.components.clock.ClockView
+import io.ak1.jetalarm.ui.components.clock.TimeZoneListRowView
 import io.ak1.jetalarm.ui.components.common.Container
 import io.ak1.jetalarm.ui.screens.Destinations
 import io.ak1.jetalarm.utils.DATE_FORMAT_FULL
