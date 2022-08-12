@@ -21,7 +21,14 @@ Screenshots
   
 Whats Coming Next
 ----------------
-Currenty JetAlarm only contains a Clock screen, rest of the full fledged Alarm app functionality is on its way.
+Phase 2
+* Basic Alarm 
+* Timer 
+  
+Phase 3
+* Advanced Alarm Features
+* StopWatch
+* More Clock UI
 
 
 License
