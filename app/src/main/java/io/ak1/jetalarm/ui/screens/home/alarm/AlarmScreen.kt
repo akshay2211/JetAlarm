@@ -16,6 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import io.ak1.jetalarm.R
@@ -37,7 +39,7 @@ fun AlarmScreen(navController: NavController) {
         Box(modifier = Modifier.fillMaxSize()) {
 
             LazyColumn {
-                items(10) {
+                items(4) {
                     AlarmRow()
                 }
                 /*items(list.value) { item ->
@@ -66,21 +68,34 @@ fun AlarmScreen(navController: NavController) {
         }
     }
 }
-
+@Preview
 @Composable
 fun AlarmRow() {
-    Row {
+    Row(modifier = Modifier.padding(12.dp, 18.dp), verticalAlignment = Alignment.CenterVertically) {
         Column {
-            Row {
+            Row(verticalAlignment = Alignment.Bottom) {
                 Text(
                     text = "6:00",
-                    style = MaterialTheme.typography.h5
+                    style = MaterialTheme.typography.h4
                 )
-                Text(text = "AM")
+
+                Text(
+                    text = "AM",
+                    style = MaterialTheme.typography.caption,
+                    modifier = Modifier.padding(3.dp,7.dp)
+                )
             }
-            Text(text = "Wake Up its Morning!!")
+            Text(text = "Wake Up its Morning!!",
+                style = MaterialTheme.typography.caption)
         }
 
-    Text(text = "M T W T F S S")
-    Switch(checked = true, onCheckedChange = {})}
+        Text(
+            text = "M T W T F S S",
+            textAlign = TextAlign.End,
+            style = MaterialTheme.typography.caption,
+            modifier = Modifier.weight(1f, true)
+        )
+        Spacer(modifier = Modifier.width(12.dp))
+        Switch(checked = true, onCheckedChange = {})
+    }
 }
