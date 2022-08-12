@@ -1,13 +1,12 @@
 package io.ak1.jetalarm.ui.screens.home.alarm
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -36,13 +35,17 @@ fun AlarmScreen(navController: NavController) {
     val list = viewModel.list.collectAsState(initial = emptyList())
     Container(heading = "Alarms") {
         Box(modifier = Modifier.fillMaxSize()) {
-            LazyColumn(content = {
-                items(list.value) { item ->
-                    Text(text = "${item.desc} Alarm", modifier = Modifier.padding(20.dp))
-                    /*TextField(value = "$i Alarm", onValueChange = {
-                    })*/
+
+            LazyColumn {
+                items(10) {
+                    AlarmRow()
                 }
-            })
+                /*items(list.value) { item ->
+                    Text(text = "${item.desc} Alarm", modifier = Modifier.padding(20.dp))
+                    *//*TextField(value = "$i Alarm", onValueChange = {
+                    })*//*
+                }*/
+            }
             FloatingActionButton(
                 onClick = {
                     navController.navigate(Destinations.CREATE_ALARM_ROUTE)
@@ -62,4 +65,22 @@ fun AlarmScreen(navController: NavController) {
             }
         }
     }
+}
+
+@Composable
+fun AlarmRow() {
+    Row {
+        Column {
+            Row {
+                Text(
+                    text = "6:00",
+                    style = MaterialTheme.typography.h5
+                )
+                Text(text = "AM")
+            }
+            Text(text = "Wake Up its Morning!!")
+        }
+
+    Text(text = "M T W T F S S")
+    Switch(checked = true, onCheckedChange = {})}
 }
