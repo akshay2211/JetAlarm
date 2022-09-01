@@ -1,15 +1,13 @@
 package io.ak1.jetalarm.ui.screens.home.alarm
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Switch
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,7 +32,7 @@ import org.koin.java.KoinJavaComponent.inject
 @Composable
 fun AlarmScreen(navController: NavController) {
     val viewModel by inject<AlarmViewModel>(AlarmViewModel::class.java)
-    val list = viewModel.list.collectAsState(initial = emptyList())
+    //val list = viewModel.list.collectAsState(initial = emptyList())
     Container(heading = "Alarms") {
         Box(modifier = Modifier.fillMaxSize()) {
 
@@ -68,6 +66,7 @@ fun AlarmScreen(navController: NavController) {
         }
     }
 }
+
 @Preview
 @Composable
 fun AlarmRow() {
@@ -82,11 +81,13 @@ fun AlarmRow() {
                 Text(
                     text = "AM",
                     style = MaterialTheme.typography.caption,
-                    modifier = Modifier.padding(3.dp,7.dp)
+                    modifier = Modifier.padding(0.dp, 7.dp)
                 )
             }
-            Text(text = "Wake Up its Morning!!",
-                style = MaterialTheme.typography.caption)
+            Text(
+                text = "Wake Up its Morning!!",
+                style = MaterialTheme.typography.caption
+            )
         }
 
         Text(
@@ -96,6 +97,19 @@ fun AlarmRow() {
             modifier = Modifier.weight(1f, true)
         )
         Spacer(modifier = Modifier.width(12.dp))
-        Switch(checked = true, onCheckedChange = {})
+        var change by remember {
+            mutableStateOf(false)
+        }
+
+        Switch(
+            checked = change, onCheckedChange = {
+                change = !change
+            }
+        )
     }
+    Divider(
+        modifier = Modifier
+            .height(1.dp)
+            .fillMaxWidth()
+    )
 }
